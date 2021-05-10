@@ -214,8 +214,7 @@ object TestUtils extends Logging {
     servers.map { s =>
       val listener = s.config.advertisedListeners.find(_.listenerName == listenerName).getOrElse(
         sys.error(s"Could not find listener with name ${listenerName.value}"))
-//      formatAddress(listener.host, s.boundPort(listenerName))
-      formatAddress("10.8.0.6", s.boundPort(listenerName))
+      formatAddress(listener.host, s.boundPort(listenerName))
     }.mkString(",")
   }
 

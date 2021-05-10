@@ -967,7 +967,7 @@ class DynamicBrokerReconfigurationTest extends ZooKeeperTestHarness with SaslSet
 
     // Verify that producer connections fail since advertised listener is invalid
     val bootstrap = TestUtils.bootstrapServers(servers, new ListenerName(SecureExternal))
-      .replaceAll(invalidHost, "localhost") // allow bootstrap connection to succeed
+      .replaceAll(invalidHost, "10.8.0.6") // allow bootstrap connection to succeed
     val producer1 = ProducerBuilder()
       .trustStoreProps(sslProperties1)
       .maxRetries(0)
