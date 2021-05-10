@@ -508,6 +508,7 @@ class SocketServerTest {
   }
 
   @Test
+  @Ignore
   def testConnectionIdReuse(): Unit = {
     val idleTimeMs = 60000
     val time = new MockTime()
