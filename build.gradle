@@ -1388,12 +1388,6 @@ project(':streams') {
 
   task testAll(
     dependsOn: [
-            ':raft:processMessages',
-            ':streams:processMessages',
-            ':clients:processMessages',
-            ':raft:processTestMessages',
-            ':streams:processTestMessages',
-            ':clients:processTestMessages',
             ':streams:test',
             ':streams:test-utils:test',
             ':streams:streams-scala:test',
