@@ -72,7 +72,7 @@ class SocketServerTest {
   val metrics = new Metrics
   val credentialProvider = new CredentialProvider(ScramMechanism.mechanismNames, null)
 //  val localAddress = InetAddress.getLoopbackAddress
-  val localAddress = "10.8.0.6"
+  val localAddress = InetAddress.getLocalHost
 
   // Clean-up any metrics left around by previous tests
   TestUtils.clearYammerMetrics()
