@@ -113,7 +113,7 @@ ext {
   minJavaVersion = "8"
   buildVersionFileName = "kafka-version.properties"
 
-  defaultMaxHeapSize = "12g"
+  defaultMaxHeapSize = java.util.Optional.ofNullable(System.getenv("kafka_build_max_heap_size")).orElse("2g")
   defaultJvmArgs = ["-Xss4m", "-XX:+UseParallelGC"]
 
   userMaxForks = project.hasProperty('maxParallelForks') ? maxParallelForks.toInteger() : null
