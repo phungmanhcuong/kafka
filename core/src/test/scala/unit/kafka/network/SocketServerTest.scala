@@ -71,7 +71,8 @@ class SocketServerTest {
   val config = KafkaConfig.fromProps(props)
   val metrics = new Metrics
   val credentialProvider = new CredentialProvider(ScramMechanism.mechanismNames, null)
-  val localAddress = InetAddress.getLoopbackAddress
+//  val localAddress = InetAddress.getLoopbackAddress
+  val localAddress = "10.8.0.6"
 
   // Clean-up any metrics left around by previous tests
   TestUtils.clearYammerMetrics()
