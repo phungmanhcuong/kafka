@@ -400,7 +400,7 @@ public class SaslAuthenticatorTest {
             selector.connect(node3, new InetSocketAddress("127.0.0.1", server.port()), BUFFER_SIZE, BUFFER_SIZE);
             NetworkTestUtils.checkClientConnection(selector, node3, 100, 10);
             server.verifyAuthenticationMetrics(3, 0);
-
+            
             /*
              * Now re-authenticate the connections. First we have to sleep long enough so
              * that the next write will cause re-authentication, which we expect to succeed.
@@ -413,7 +413,7 @@ public class SaslAuthenticatorTest {
 
             NetworkTestUtils.checkClientConnection(selector3, node3, 100, 10);
             server.verifyReauthenticationMetrics(2, 0);
-
+            
         } finally {
             if (selector2 != null)
                 selector2.close();
@@ -832,7 +832,7 @@ public class SaslAuthenticatorTest {
         createClientConnection(SecurityProtocol.PLAINTEXT, node1);
         SaslHandshakeRequest request = buildSaslHandshakeRequest("PLAIN", ApiKeys.SASL_HANDSHAKE.latestVersion());
         RequestHeader header = new RequestHeader(ApiKeys.SASL_HANDSHAKE, Short.MAX_VALUE, "someclient", 2);
-
+        
         selector.send(request.toSend(node1, header));
         // This test uses a non-SASL PLAINTEXT client in order to do manual handshake.
         // So the channel is in READY state.
@@ -1522,7 +1522,7 @@ public class SaslAuthenticatorTest {
         server = createEchoServer(securityProtocol);
         createAndCheckClientConnection(securityProtocol, node);
     }
-
+    
     /**
      * Re-authentication must fail if principal changes
      */
@@ -1606,7 +1606,7 @@ public class SaslAuthenticatorTest {
         final RequestHeader header1 = new RequestHeader(LIST_OFFSETS, LIST_OFFSETS.latestVersion(), "id", 1);
         Assert.assertThrows(IllegalStateException.class, () -> NetworkClient.parseResponse(buffer.duplicate(), header1));
     }
-
+    
     /**
      * Re-authentication must fail if mechanism changes
      */
@@ -1691,7 +1691,7 @@ public class SaslAuthenticatorTest {
                     e.getMessage().matches(
                             ".*<\\[" + expectedResponseTextRegex + "]>.*<\\[" + receivedResponseTextRegex + ".*?]>"));
             server.verifyReauthenticationMetrics(1, 0); // unchanged
-        } finally {
+        } finally { 
             selector.close();
             selector = null;
         }
@@ -1733,7 +1733,7 @@ public class SaslAuthenticatorTest {
         }
         server.verifyReauthenticationMetrics(desiredNumReauthentications, 0);
     }
-
+    
     /**
      * Tests OAUTHBEARER client channels without tokens for the server.
      */
@@ -2098,7 +2098,7 @@ public class SaslAuthenticatorTest {
         InetSocketAddress addr = new InetSocketAddress("localhost", server.port());
         selector.connect(node, addr, BUFFER_SIZE, BUFFER_SIZE);
     }
-
+    
     private void checkClientConnection(String node) throws Exception {
         NetworkTestUtils.checkClientConnection(selector, node, 100, 10);
     }

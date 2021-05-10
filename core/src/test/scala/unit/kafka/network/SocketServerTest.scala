@@ -71,8 +71,7 @@ class SocketServerTest {
   val config = KafkaConfig.fromProps(props)
   val metrics = new Metrics
   val credentialProvider = new CredentialProvider(ScramMechanism.mechanismNames, null)
-//  val localAddress = InetAddress.getLoopbackAddress
-  val localAddress = InetAddress.getLocalHost
+  val localAddress = InetAddress.getLoopbackAddress
 
   // Clean-up any metrics left around by previous tests
   TestUtils.clearYammerMetrics()
@@ -516,7 +515,7 @@ class SocketServerTest {
     props ++= sslServerProps
     val serverMetrics = new Metrics
     @volatile var selector: TestableSelector = null
-    val overrideConnectionId = "10.8.0.6:1-10.8.0.6:2-0"
+    val overrideConnectionId = "127.0.0.1:1-127.0.0.1:2-0"
     val overrideServer = new SocketServer(KafkaConfig.fromProps(props), serverMetrics, time, credentialProvider) {
       override def newProcessor(id: Int, requestChannel: RequestChannel, connectionQuotas: ConnectionQuotas, listenerName: ListenerName,
                                 protocol: SecurityProtocol, memoryPool: MemoryPool): Processor = {
@@ -535,7 +534,7 @@ class SocketServerTest {
 
     def openChannel: Option[KafkaChannel] = overrideServer.dataPlaneProcessor(0).channel(overrideConnectionId)
     def openOrClosingChannel: Option[KafkaChannel] = overrideServer.dataPlaneProcessor(0).openOrClosingChannel(overrideConnectionId)
-    def connectionCount = overrideServer.connectionCount(InetAddress.getByName("10.8.0.6"))
+    def connectionCount = overrideServer.connectionCount(InetAddress.getByName("127.0.0.1"))
 
     // Create a client connection and wait for server to register the connection with the selector. For
     // test scenarios below where `Selector.register` fails, the wait ensures that checks are performed
@@ -818,7 +817,7 @@ class SocketServerTest {
   def testZeroMaxConnectionsPerIp(): Unit = {
     val newProps = TestUtils.createBrokerConfig(0, TestUtils.MockZkConnect, port = 0)
     newProps.setProperty(KafkaConfig.MaxConnectionsPerIpProp, "0")
-    newProps.setProperty(KafkaConfig.MaxConnectionsPerIpOverridesProp, "%s:%s".format("10.8.0.6", "5"))
+    newProps.setProperty(KafkaConfig.MaxConnectionsPerIpOverridesProp, "%s:%s".format("127.0.0.1", "5"))
     val server = new SocketServer(KafkaConfig.fromProps(newProps), new Metrics(), Time.SYSTEM, credentialProvider)
     try {
       server.startup()
