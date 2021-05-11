@@ -114,8 +114,8 @@ ext {
   buildVersionFileName = "kafka-version.properties"
 
   defaultMaxHeapSize = java.util.Optional.ofNullable(System.getenv("kafka_build_max_heap_size")).orElse("2g")
-//  defaultJvmArgs = ["-Xss256m", "-XX:+UseParallelGC"]
-  defaultJvmArgs = ["-Xss1024m", "-XX:+UnlockExperimentalVMOptions", "-XX:+UseShenandoahGC"]
+  defaultJvmArgs = ["-Xss256m", "-XX:+UseParallelGC"]
+//  defaultJvmArgs = ["-Xss1024m", "-XX:+UnlockExperimentalVMOptions", "-XX:+UseShenandoahGC"]
 
   userMaxForks = project.hasProperty('maxParallelForks') ? maxParallelForks.toInteger() : null
   userIgnoreFailures = project.hasProperty('ignoreFailures') ? ignoreFailures : false
