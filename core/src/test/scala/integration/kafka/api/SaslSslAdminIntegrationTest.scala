@@ -14,6 +14,7 @@ package kafka.api
 
 import java.io.File
 import java.util
+
 import kafka.log.LogConfig
 import kafka.server.{Defaults, KafkaConfig}
 import kafka.utils.{CoreUtils, JaasTestUtils, TestUtils}
@@ -27,7 +28,7 @@ import org.apache.kafka.common.errors.{ClusterAuthorizationException, InvalidReq
 import org.apache.kafka.common.resource.{PatternType, ResourcePattern, ResourcePatternFilter, ResourceType}
 import org.apache.kafka.common.security.auth.{KafkaPrincipal, SecurityProtocol}
 import org.junit.Assert.{assertEquals, assertTrue}
-import org.junit.{After, Assert, Before, Ignore, Test}
+import org.junit.{After, Assert, Before, Test}
 
 import scala.annotation.nowarn
 import scala.jdk.CollectionConverters._
