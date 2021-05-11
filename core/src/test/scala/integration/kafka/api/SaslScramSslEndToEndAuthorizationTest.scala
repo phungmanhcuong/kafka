@@ -26,7 +26,6 @@ import org.apache.kafka.test.TestSslUtils
 import scala.jdk.CollectionConverters._
 import org.junit.{Before, Ignore}
 
-@Ignore
 class SaslScramSslEndToEndAuthorizationTest extends SaslEndToEndAuthorizationTest {
   override protected def kafkaClientSaslMechanism = "SCRAM-SHA-256"
   override protected def kafkaServerSaslMechanisms = ScramMechanism.mechanismNames.asScala.toList
