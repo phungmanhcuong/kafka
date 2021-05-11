@@ -38,7 +38,6 @@ import org.scalatest.Assertions.{fail, intercept}
 
 import scala.jdk.CollectionConverters._
 
-@Ignore
 class ZooKeeperClientTest extends ZooKeeperTestHarness {
   private val mockPath = "/foo"
   private val time = Time.SYSTEM
