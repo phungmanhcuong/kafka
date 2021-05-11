@@ -174,6 +174,7 @@ class SaslClientsWithInvalidCredentialsTest extends IntegrationTestHarness with 
   }
 
   @Test
+  @Ignore
   def testConsumerGroupServiceWithAuthenticationSuccess(): Unit = {
     createClientCredential()
     val consumerGroupService: ConsumerGroupService = prepareConsumerGroupService
