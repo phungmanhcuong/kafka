@@ -30,7 +30,6 @@ import kafka.utils.{JaasTestUtils, TestUtils}
 import kafka.zk.ConfigEntityChangeNotificationZNode
 import org.apache.kafka.common.security.auth.SecurityProtocol
 
-@Ignore
 class SaslClientsWithInvalidCredentialsTest extends IntegrationTestHarness with SaslSetup {
   private val kafkaClientSaslMechanism = "SCRAM-SHA-256"
   private val kafkaServerSaslMechanisms = List(kafkaClientSaslMechanism)
@@ -108,7 +107,6 @@ class SaslClientsWithInvalidCredentialsTest extends IntegrationTestHarness with 
   }
 
   @Test
-  @Ignore
   def testManualAssignmentConsumerWithAuthenticationFailure(): Unit = {
     val consumer = createConsumer()
     consumer.assign(List(tp).asJava)
@@ -175,7 +173,6 @@ class SaslClientsWithInvalidCredentialsTest extends IntegrationTestHarness with 
   }
 
   @Test
-  @Ignore
   def testConsumerGroupServiceWithAuthenticationSuccess(): Unit = {
     createClientCredential()
     val consumerGroupService: ConsumerGroupService = prepareConsumerGroupService
