@@ -39,7 +39,6 @@ import scala.collection.Seq
 import scala.collection.mutable.Buffer
 import scala.concurrent.ExecutionException
 
-@Ignore
 class TransactionsTest extends KafkaServerTestHarness {
   val numServers = 3
   val transactionalProducerCount = 2

@@ -45,7 +45,6 @@ abstract class AuthorizationAdmin {
 
 // Note: this test currently uses the deprecated SimpleAclAuthorizer to ensure we have test coverage
 // It must be replaced with the new AclAuthorizer when SimpleAclAuthorizer is removed
-@Ignore
 class SaslSslAdminIntegrationTest extends BaseAdminIntegrationTest with SaslSetup {
   @nowarn("cat=deprecation")
   val authorizationAdmin: AuthorizationAdmin = new LegacyAuthorizationAdmin
