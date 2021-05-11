@@ -20,7 +20,6 @@ import java.nio.charset.StandardCharsets
 import java.util.UUID
 import java.util.concurrent.atomic.{AtomicBoolean, AtomicInteger}
 import java.util.concurrent.{ArrayBlockingQueue, ConcurrentLinkedQueue, CountDownLatch, Executors, Semaphore, TimeUnit}
-
 import scala.collection.Seq
 import com.yammer.metrics.core.{Gauge, Meter, MetricName}
 import kafka.server.KafkaConfig
@@ -34,11 +33,12 @@ import org.apache.zookeeper.ZooKeeper.States
 import org.apache.zookeeper.client.ZKClientConfig
 import org.apache.zookeeper.{CreateMode, WatchedEvent, ZooDefs}
 import org.junit.Assert.{assertArrayEquals, assertEquals, assertFalse, assertTrue}
-import org.junit.{After, Before, Test}
+import org.junit.{After, Before, Ignore, Test}
 import org.scalatest.Assertions.{fail, intercept}
 
 import scala.jdk.CollectionConverters._
 
+@Ignore
 class ZooKeeperClientTest extends ZooKeeperTestHarness {
   private val mockPath = "/foo"
   private val time = Time.SYSTEM

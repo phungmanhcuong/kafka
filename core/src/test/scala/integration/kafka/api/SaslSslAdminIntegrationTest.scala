@@ -14,7 +14,6 @@ package kafka.api
 
 import java.io.File
 import java.util
-
 import kafka.log.LogConfig
 import kafka.server.{Defaults, KafkaConfig}
 import kafka.utils.{CoreUtils, JaasTestUtils, TestUtils}
@@ -28,7 +27,7 @@ import org.apache.kafka.common.errors.{ClusterAuthorizationException, InvalidReq
 import org.apache.kafka.common.resource.{PatternType, ResourcePattern, ResourcePatternFilter, ResourceType}
 import org.apache.kafka.common.security.auth.{KafkaPrincipal, SecurityProtocol}
 import org.junit.Assert.{assertEquals, assertTrue}
-import org.junit.{After, Assert, Before, Test}
+import org.junit.{After, Assert, Before, Ignore, Test}
 
 import scala.annotation.nowarn
 import scala.jdk.CollectionConverters._
@@ -46,6 +45,7 @@ abstract class AuthorizationAdmin {
 
 // Note: this test currently uses the deprecated SimpleAclAuthorizer to ensure we have test coverage
 // It must be replaced with the new AclAuthorizer when SimpleAclAuthorizer is removed
+@Ignore
 class SaslSslAdminIntegrationTest extends BaseAdminIntegrationTest with SaslSetup {
   @nowarn("cat=deprecation")
   val authorizationAdmin: AuthorizationAdmin = new LegacyAuthorizationAdmin
