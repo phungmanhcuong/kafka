@@ -17,7 +17,7 @@
 package kafka.utils
 
 import com.fasterxml.jackson.core.JsonProcessingException
-import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.databind.{DeserializationFeature, ObjectMapper}
 import kafka.utils.json.JsonValue
 
 import scala.reflect.ClassTag
@@ -28,6 +28,7 @@ import scala.reflect.ClassTag
 object Json {
 
   private val mapper = new ObjectMapper()
+    .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
 
   /**
    * Parse a JSON string into a JsonValue if possible. `None` is returned if `input` is not valid JSON.
