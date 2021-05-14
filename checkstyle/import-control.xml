@@ -38,6 +38,7 @@
 
   <!-- no one depends on the server -->
   <disallow pkg="kafka" />
+  <allow pkg="org.apache.kafka.reusable"/>
 
   <!-- anyone can use public classes -->
   <allow pkg="org.apache.kafka.common" exact-match="true" />
@@ -191,6 +192,7 @@
     <subpackage name="producer">
       <allow pkg="org.apache.kafka.clients.consumer" />
       <allow pkg="org.apache.kafka.clients.producer" />
+      <allow pkg="org.apache.kafka.reusable"/>
     </subpackage>
 
     <subpackage name="admin">

@@ -31,10 +31,10 @@ object Resource {
   val ProducerIdResourceName = "producer-id" // This is not used since we don't have a producer id resource
 
   def fromString(str: String): Resource = {
-    ResourceType.values.find(resourceType => str.startsWith(resourceType.name + Separator)) match {
+    ResourceType.values.find(resourceType => str.startsWith(resourceType.getName + Separator)) match {
       case None => throw new KafkaException("Invalid resource string: '" + str + "'")
       case Some(resourceType) =>
-        val remaining = str.substring(resourceType.name.length + 1)
+        val remaining = str.substring(resourceType.getName.length + 1)
 
         PatternType.values.find(patternType => remaining.startsWith(patternType.name + Separator)) match {
           case Some(patternType) =>
@@ -79,7 +79,7 @@ case class Resource(resourceType: ResourceType, name: String, patternType: Patte
   }
 
   override def toString: String = {
-    resourceType.name + Resource.Separator + patternType + Resource.Separator + name
+    resourceType.getName + Resource.Separator + patternType + Resource.Separator + name
   }
 }
 

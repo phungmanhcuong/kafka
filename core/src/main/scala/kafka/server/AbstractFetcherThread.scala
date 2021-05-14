@@ -17,34 +17,30 @@
 
 package kafka.server
 
+import kafka.cluster.BrokerEndPoint
+import kafka.common.ClientIdAndBroker
+import kafka.log.LogAppendInfo
+import kafka.metrics.KafkaMetricsGroup
+import kafka.server.AbstractFetcherThread.{ReplicaFetch, ResultWithPartitions}
+import kafka.utils.CoreUtils.inLock
+import kafka.utils.Implicits._
+import kafka.utils.{DelayedItem, Pool, ShutdownableThread}
+import org.apache.kafka.common.errors._
+import org.apache.kafka.common.internals.PartitionStates
+import org.apache.kafka.common.protocol.Errors
+import org.apache.kafka.common.record.{FileRecords, MemoryRecords, Records}
+import org.apache.kafka.common.requests.EpochEndOffset._
+import org.apache.kafka.common.requests._
+import org.apache.kafka.common.{InvalidRecordException, TopicPartition}
+
 import java.nio.ByteBuffer
 import java.util
 import java.util.Optional
-import java.util.concurrent.locks.ReentrantLock
-
-import kafka.cluster.BrokerEndPoint
-import kafka.utils.{DelayedItem, Pool, ShutdownableThread}
-import kafka.utils.Implicits._
-import org.apache.kafka.common.errors._
-import org.apache.kafka.common.requests.EpochEndOffset._
-import kafka.common.ClientIdAndBroker
-import kafka.metrics.KafkaMetricsGroup
-import kafka.utils.CoreUtils.inLock
-import org.apache.kafka.common.protocol.Errors
-
-import scala.collection.{mutable, Map, Set}
-import scala.jdk.CollectionConverters._
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicLong
-
-import kafka.log.LogAppendInfo
-import kafka.server.AbstractFetcherThread.ReplicaFetch
-import kafka.server.AbstractFetcherThread.ResultWithPartitions
-import org.apache.kafka.common.{InvalidRecordException, TopicPartition}
-import org.apache.kafka.common.internals.PartitionStates
-import org.apache.kafka.common.record.{FileRecords, MemoryRecords, Records}
-import org.apache.kafka.common.requests._
-
+import java.util.concurrent.locks.ReentrantLock
+import scala.collection.{Map, Set, mutable}
+import scala.jdk.CollectionConverters._
 import scala.math._
 
 /**
@@ -66,7 +62,7 @@ abstract class AbstractFetcherThread(name: String,
   protected val partitionMapLock = new ReentrantLock
   private val partitionMapCond = partitionMapLock.newCondition()
 
-  private val metricId = ClientIdAndBroker(clientId, sourceBroker.host, sourceBroker.port)
+  private val metricId = new ClientIdAndBroker(clientId, sourceBroker.host, sourceBroker.port)
   val fetcherStats = new FetcherStats(metricId)
   val fetcherLagStats = new FetcherLagStats(metricId)
 

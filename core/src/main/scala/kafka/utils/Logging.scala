@@ -18,6 +18,7 @@
 package kafka.utils
 
 import com.typesafe.scalalogging.Logger
+import org.apache.kafka.reusable.logging.BaseLogging
 import org.slf4j.{LoggerFactory, Marker, MarkerFactory}
 
 
@@ -38,15 +39,15 @@ private object Logging {
   private val FatalMarker: Marker = MarkerFactory.getMarker("FATAL")
 }
 
-trait Logging {
-
-  protected lazy val logger = Logger(LoggerFactory.getLogger(loggerName))
-
+trait Logging extends BaseLogging[Unit, Logger] {
+  protected lazy val logger = getLogger()
   protected var logIdent: String = _
 
   Log4jControllerRegistration
 
   protected def loggerName: String = getClass.getName
+
+  protected def getLogger(): Logger = Logger(LoggerFactory.getLogger(loggerName))
 
   protected def msgWithLogIdent(msg: String): String =
     if (logIdent == null) msg else logIdent + msg
@@ -55,9 +56,9 @@ trait Logging {
 
   def trace(msg: => String, e: => Throwable): Unit = logger.trace(msgWithLogIdent(msg),e)
 
-  def isDebugEnabled: Boolean = logger.underlying.isDebugEnabled
+  override def isDebugEnabled: Boolean = logger.underlying.isDebugEnabled
 
-  def isTraceEnabled: Boolean = logger.underlying.isTraceEnabled
+  override def isTraceEnabled: Boolean = logger.underlying.isTraceEnabled
 
   def debug(msg: => String): Unit = logger.debug(msgWithLogIdent(msg))
 

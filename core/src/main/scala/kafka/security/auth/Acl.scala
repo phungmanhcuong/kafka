@@ -73,13 +73,13 @@ case class Acl(principal: KafkaPrincipal, permissionType: PermissionType, host: 
    */
   def toMap(): Map[String, Any] = {
     Map(Acl.PrincipalKey -> principal.toString,
-      Acl.PermissionTypeKey -> permissionType.name,
-      Acl.OperationKey -> operation.name,
+      Acl.PermissionTypeKey -> permissionType.getName,
+      Acl.OperationKey -> operation.getName,
       Acl.HostsKey -> host)
   }
 
   override def toString: String = {
-    "%s has %s permission for operations: %s from hosts: %s".format(principal, permissionType.name, operation, host)
+    "%s has %s permission for operations: %s from hosts: %s".format(principal, permissionType.getName, operation, host)
   }
 
 }
