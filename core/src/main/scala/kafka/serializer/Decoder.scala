@@ -25,7 +25,7 @@ import org.apache.kafka.reusable.serializer.Decoder
  * The default implementation does nothing, just returns the same byte array it takes in.
  */
 class DefaultDecoder(props: VerifiableProperties = null) extends Decoder[Array[Byte], Array[Byte]] {
-  def fromBytes(bytes: Array[Byte]): Array[Byte] = bytes
+  def decode(bytes: Array[Byte]): Array[Byte] = bytes
 }
 
 /**
@@ -39,7 +39,7 @@ class StringDecoder(props: VerifiableProperties = null) extends Decoder[Array[By
     else
       props.getString("serializer.encoding", "UTF8")
 
-  def fromBytes(bytes: Array[Byte]): String = {
+  def decode(bytes: Array[Byte]): String = {
     new String(bytes, encoding)
   }
 }
@@ -48,7 +48,7 @@ class StringDecoder(props: VerifiableProperties = null) extends Decoder[Array[By
   * The long decoder translates bytes into longs.
   */
 class LongDecoder(props: VerifiableProperties = null) extends Decoder[Array[Byte], Long] {
-  def fromBytes(bytes: Array[Byte]): Long = {
+  def decode(bytes: Array[Byte]): Long = {
     ByteBuffer.wrap(bytes).getLong
   }
 }
@@ -57,7 +57,7 @@ class LongDecoder(props: VerifiableProperties = null) extends Decoder[Array[Byte
   * The integer decoder translates bytes into integers.
   */
 class IntegerDecoder(props: VerifiableProperties = null) extends Decoder[Array[Byte], Integer] {
-  def fromBytes(bytes: Array[Byte]): Integer = {
+  def decode(bytes: Array[Byte]): Integer = {
     ByteBuffer.wrap(bytes).getInt()
   }
 }
