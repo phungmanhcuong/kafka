@@ -213,7 +213,7 @@ object DumpLogSegments {
     def parse(record: Record): (Option[K], Option[V])
   }
 
-  private class DecoderMessageParser[K, V](keyDecoder: Decoder[K], valueDecoder: Decoder[V]) extends MessageParser[K, V] {
+  private class DecoderMessageParser[K, V](keyDecoder: Decoder[Array[Byte], K], valueDecoder: Decoder[Array[Byte], V]) extends MessageParser[K, V] {
     override def parse(record: Record): (Option[K], Option[V]) = {
       val key = if (record.hasKey)
         Some(keyDecoder.decode(Utils.readBytes(record.key)))
@@ -407,8 +407,8 @@ object DumpLogSegments {
       } else if (options.has(transactionLogOpt)) {
         new TransactionLogMessageParser
       } else {
-        val valueDecoder: Decoder[_] = CoreUtils.createObject[Decoder[_]](options.valueOf(valueDecoderOpt), new VerifiableProperties)
-        val keyDecoder: Decoder[_] = CoreUtils.createObject[Decoder[_]](options.valueOf(keyDecoderOpt), new VerifiableProperties)
+        val valueDecoder: Decoder[Array[Byte], _] = CoreUtils.createObject[Decoder[Array[Byte], _]](options.valueOf(valueDecoderOpt), new VerifiableProperties)
+        val keyDecoder: Decoder[Array[Byte], _] = CoreUtils.createObject[Decoder[Array[Byte], _]](options.valueOf(keyDecoderOpt), new VerifiableProperties)
         new DecoderMessageParser(keyDecoder, valueDecoder)
       }
 
