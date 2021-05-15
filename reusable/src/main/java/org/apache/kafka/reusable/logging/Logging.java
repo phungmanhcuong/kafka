@@ -35,7 +35,7 @@ public interface Logging {
                 .orElse(message);
     }
 
-    Marker FatalMarker = MarkerFactory.getMarker("FATAL");
+    Marker FATAL_MARKER = MarkerFactory.getMarker("FATAL");
 
     default Logger logger() {
         return LoggerFactory.getLogger(getClass());
@@ -90,10 +90,10 @@ public interface Logging {
     }
 
     default void fatal(String message) {
-        logger().error(FatalMarker, msgWithLogIdent(message));
+        logger().error(FATAL_MARKER, msgWithLogIdent(message));
     }
 
     default void fatal(String message, Throwable throwable) {
-        logger().error(FatalMarker, msgWithLogIdent(message), throwable);
+        logger().error(FATAL_MARKER, msgWithLogIdent(message), throwable);
     }
 }
