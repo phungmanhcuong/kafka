@@ -18,12 +18,11 @@ package kafka.admin
 
 import java.io.{File, PrintWriter}
 import java.util.Properties
-
 import javax.management.InstanceAlreadyExistsException
 import kafka.admin.AclCommand.AclCommandOptions
 import kafka.security.authorizer.{AclAuthorizer, AclEntry}
 import kafka.server.{KafkaConfig, KafkaServer}
-import kafka.utils.{Exit, LogCaptureAppender, Logging, TestUtils}
+import kafka.utils.{Exit, LogCaptureAppender, TestUtils}
 import kafka.zk.ZooKeeperTestHarness
 import org.apache.kafka.common.acl.{AccessControlEntry, AclOperation, AclPermissionType}
 import org.apache.kafka.common.acl.AclOperation._
@@ -34,6 +33,7 @@ import org.apache.kafka.common.network.ListenerName
 import org.apache.kafka.common.resource.PatternType.{LITERAL, PREFIXED}
 import org.apache.kafka.common.security.auth.{KafkaPrincipal, SecurityProtocol}
 import org.apache.kafka.common.utils.{AppInfoParser, SecurityUtils}
+import org.apache.kafka.reusable.logging.Logging
 import org.apache.kafka.server.authorizer.Authorizer
 import org.apache.log4j.Level
 import org.junit.Assert.assertFalse

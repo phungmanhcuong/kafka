@@ -18,8 +18,8 @@
 package kafka.utils
 
 import java.util.concurrent._
-
 import org.apache.kafka.common.utils.Time
+import org.apache.kafka.reusable.logging.Logging
 
 import scala.math._
 

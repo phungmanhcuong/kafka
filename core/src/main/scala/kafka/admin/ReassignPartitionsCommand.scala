@@ -19,11 +19,10 @@ package kafka.admin
 import java.util
 import java.util.Optional
 import java.util.concurrent.ExecutionException
-
 import kafka.common.AdminCommandFailedException
 import kafka.log.LogConfig
 import kafka.server.{ConfigType, DynamicConfig}
-import kafka.utils.{CommandDefaultOptions, CommandLineUtils, CoreUtils, Exit, Json, Logging}
+import kafka.utils.{CommandDefaultOptions, CommandLineUtils, CoreUtils, Exit, Json}
 import kafka.utils.Implicits._
 import kafka.utils.json.JsonValue
 import kafka.zk.{AdminZkClient, KafkaZkClient}
@@ -34,6 +33,7 @@ import org.apache.kafka.common.errors.{ReplicaNotAvailableException, UnknownTopi
 import org.apache.kafka.common.security.JaasUtils
 import org.apache.kafka.common.utils.{Time, Utils}
 import org.apache.kafka.common.{KafkaException, KafkaFuture, TopicPartition, TopicPartitionReplica}
+import org.apache.kafka.reusable.logging.Logging
 
 import scala.jdk.CollectionConverters._
 import scala.collection.{Map, Seq, mutable}

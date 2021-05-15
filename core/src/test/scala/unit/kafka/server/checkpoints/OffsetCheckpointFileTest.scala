@@ -17,9 +17,10 @@
 package kafka.server.checkpoints
 
 import kafka.server.LogDirFailureChannel
-import kafka.utils.{Logging, TestUtils}
+import kafka.utils.TestUtils
 import org.apache.kafka.common.TopicPartition
 import org.apache.kafka.common.errors.KafkaStorageException
+import org.apache.kafka.reusable.logging.Logging
 import org.junit.Assert._
 import org.junit.Test
 import org.mockito.Mockito

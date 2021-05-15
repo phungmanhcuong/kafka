@@ -17,11 +17,12 @@
 package kafka.coordinator.transaction
 
 import java.nio.charset.StandardCharsets
-
-import kafka.utils.{Json, Logging}
+import kafka.utils.Json
 import kafka.zk.{KafkaZkClient, ProducerIdBlockZNode}
 import org.apache.kafka.common.KafkaException
+import org.apache.kafka.reusable.logging.Logging
 
+import java.util
 import scala.jdk.CollectionConverters._
 
 /**
@@ -54,7 +55,7 @@ object ProducerIdManager extends Logging {
     } catch {
       case e: java.lang.NumberFormatException =>
         // this should never happen: the written data has exceeded long type limit
-        fatal(s"Read jason data $jsonData contains producerIds that have exceeded long type limit")
+        fatal(s"Read jason data ${util.Arrays.toString(jsonData)} contains producerIds that have exceeded long type limit")
         throw e
     }
   }
@@ -72,7 +73,7 @@ case class ProducerIdBlock(brokerId: Int, blockStartId: Long, blockEndId: Long) 
 
 class ProducerIdManager(val brokerId: Int, val zkClient: KafkaZkClient) extends Logging {
 
-  this.logIdent = "[ProducerId Manager " + brokerId + "]: "
+  override def logIdent() = "[ProducerId Manager " + brokerId + "]: "
 
   private var currentProducerIdBlock: ProducerIdBlock = null
   private var nextProducerId: Long = -1L

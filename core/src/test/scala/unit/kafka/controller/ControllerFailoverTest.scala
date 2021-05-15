@@ -20,12 +20,12 @@ package kafka.controller
 import java.util.Properties
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.atomic.AtomicReference
-
 import kafka.integration.KafkaServerTestHarness
 import kafka.server.KafkaConfig
 import kafka.utils._
 import org.apache.kafka.common.TopicPartition
 import org.apache.kafka.common.metrics.Metrics
+import org.apache.kafka.reusable.logging.Logging
 import org.apache.log4j.Logger
 import org.junit.{After, Test}
 import org.junit.Assert._

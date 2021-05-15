@@ -18,12 +18,13 @@ package kafka.admin
 
 import kafka.admin.TopicCommand.{TopicCommandOptions, ZookeeperTopicService}
 import kafka.server.ConfigType
-import kafka.utils.{Exit, Logging, TestUtils}
+import kafka.utils.{Exit, TestUtils}
 import kafka.zk.{ConfigEntityChangeNotificationZNode, DeleteTopicsTopicZNode, ZooKeeperTestHarness}
 import org.apache.kafka.common.TopicPartition
 import org.apache.kafka.common.config.{ConfigException, ConfigResource}
 import org.apache.kafka.common.errors.{InvalidPartitionsException, InvalidReplicationFactorException, TopicExistsException}
 import org.apache.kafka.common.internals.Topic
+import org.apache.kafka.reusable.logging.Logging
 import org.junit.Assert._
 import org.junit.rules.TestName
 import org.junit.{After, Before, Rule, Test}

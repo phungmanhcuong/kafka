@@ -23,12 +23,12 @@ import java.util.concurrent.atomic.AtomicInteger
 import java.util.concurrent.locks.ReentrantLock
 import java.nio.ByteBuffer
 import java.util.regex.Pattern
-
 import org.junit.Assert._
 import kafka.utils.CoreUtils.inLock
 import org.apache.kafka.common.KafkaException
 import org.junit.Test
 import org.apache.kafka.common.utils.Utils
+import org.apache.kafka.reusable.logging.Logging
 import org.slf4j.event.Level
 
 import scala.jdk.CollectionConverters._

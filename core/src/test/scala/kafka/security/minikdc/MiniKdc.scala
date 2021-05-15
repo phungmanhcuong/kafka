@@ -24,8 +24,7 @@ import java.nio.charset.StandardCharsets
 import java.nio.file.Files
 import java.text.MessageFormat
 import java.util.{Locale, Properties, UUID}
-
-import kafka.utils.{CoreUtils, Exit, Logging}
+import kafka.utils.{CoreUtils, Exit}
 
 import scala.jdk.CollectionConverters._
 import org.apache.commons.lang.text.StrSubstitutor
@@ -50,6 +49,7 @@ import org.apache.directory.server.protocol.shared.transport.{TcpTransport, UdpT
 import org.apache.directory.server.xdbm.Index
 import org.apache.directory.shared.kerberos.KerberosTime
 import org.apache.kafka.common.utils.{Java, Utils}
+import org.apache.kafka.reusable.logging.Logging
 
 /**
   * Mini KDC based on Apache Directory Server that can be embedded in tests or used from command line as a standalone

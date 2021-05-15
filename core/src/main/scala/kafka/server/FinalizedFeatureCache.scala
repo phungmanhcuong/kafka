@@ -17,8 +17,8 @@
 
 package kafka.server
 
-import kafka.utils.Logging
 import org.apache.kafka.common.feature.{Features, FinalizedVersionRange}
+import org.apache.kafka.reusable.logging.Logging
 
 import scala.concurrent.TimeoutException
 import scala.math.max

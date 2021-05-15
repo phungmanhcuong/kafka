@@ -19,10 +19,9 @@ package kafka.log
 
 import java.io.File
 import java.nio.ByteBuffer
-
 import kafka.utils.CoreUtils.inLock
-import kafka.utils.Logging
 import org.apache.kafka.common.errors.InvalidOffsetException
+import org.apache.kafka.reusable.logging.Logging
 
 /**
  * An index that maps offsets to physical file locations for a particular log segment. This index may be sparse:
@@ -203,5 +202,4 @@ class OffsetIndex(_file: File, baseOffset: Long, maxIndexSize: Int = -1, writabl
 }
 
 object OffsetIndex extends Logging {
-  override val loggerName: String = classOf[OffsetIndex].getName
 }

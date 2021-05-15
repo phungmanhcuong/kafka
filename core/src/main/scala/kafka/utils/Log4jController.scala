@@ -19,7 +19,6 @@ package kafka.utils
 
 import java.util
 import java.util.Locale
-
 import org.apache.log4j.{Level, LogManager, Logger}
 
 import scala.collection.mutable
@@ -81,7 +80,7 @@ object Log4jController {
 /**
  * An MBean that allows the user to dynamically alter log4j levels at runtime.
  * The companion object contains the singleton instance of this class and
- * registers the MBean. The [[kafka.utils.Logging]] trait forces initialization
+ * registers the MBean. The [[Logging]] trait forces initialization
  * of the companion object.
  */
 class Log4jController extends Log4jControllerMBean {

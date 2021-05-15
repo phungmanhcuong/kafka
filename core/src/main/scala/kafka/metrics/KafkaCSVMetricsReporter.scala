@@ -22,12 +22,12 @@ package kafka.metrics
 
 import java.io.File
 import java.nio.file.Files
-
 import com.yammer.metrics.reporting.CsvReporter
-import java.util.concurrent.TimeUnit
 
-import kafka.utils.{Logging, VerifiableProperties}
+import java.util.concurrent.TimeUnit
+import kafka.utils.VerifiableProperties
 import org.apache.kafka.common.utils.Utils
+import org.apache.kafka.reusable.logging.Logging
 
 private trait KafkaCSVMetricsReporterMBean extends KafkaMetricsReporterMBean
 

@@ -18,6 +18,8 @@
 package kafka.utils
 
 
+import org.apache.kafka.reusable.logging.Logging
+
 import java.lang.management.ManagementFactory
 import javax.management.ObjectName
 

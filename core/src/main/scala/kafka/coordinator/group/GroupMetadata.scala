@@ -19,9 +19,8 @@ package kafka.coordinator.group
 import java.nio.ByteBuffer
 import java.util.UUID
 import java.util.concurrent.locks.ReentrantLock
-
 import kafka.common.OffsetAndMetadata
-import kafka.utils.{CoreUtils, Logging, nonthreadsafe}
+import kafka.utils.{CoreUtils, nonthreadsafe}
 import kafka.utils.Implicits._
 import org.apache.kafka.clients.consumer.internals.ConsumerProtocol
 import org.apache.kafka.common.TopicPartition
@@ -29,6 +28,7 @@ import org.apache.kafka.common.message.JoinGroupResponseData.JoinGroupResponseMe
 import org.apache.kafka.common.protocol.Errors
 import org.apache.kafka.common.protocol.types.SchemaException
 import org.apache.kafka.common.utils.Time
+import org.apache.kafka.reusable.logging.Logging
 
 import scala.collection.{Seq, immutable, mutable}
 import scala.jdk.CollectionConverters._

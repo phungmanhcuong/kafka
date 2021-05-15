@@ -20,8 +20,6 @@ import java.net.InetSocketAddress
 import java.util
 import java.util.concurrent.ArrayBlockingQueue
 import java.util.concurrent.atomic.AtomicInteger
-
-import kafka.utils.Logging
 import org.apache.kafka.clients.{ClientRequest, ClientResponse, KafkaClient}
 import org.apache.kafka.common.message._
 import org.apache.kafka.common.protocol.{ApiKeys, ApiMessage, Errors}
@@ -29,6 +27,7 @@ import org.apache.kafka.common.requests._
 import org.apache.kafka.common.utils.Time
 import org.apache.kafka.common.{KafkaException, Node}
 import org.apache.kafka.raft.{NetworkChannel, RaftMessage, RaftRequest, RaftResponse, RaftUtil}
+import org.apache.kafka.reusable.logging.Logging
 
 import scala.collection.mutable
 import scala.jdk.CollectionConverters._

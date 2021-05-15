@@ -20,11 +20,12 @@ package kafka.utils
 import java.util.concurrent.{CountDownLatch, TimeUnit}
 import org.apache.kafka.common.internals.FatalExitError
 import org.apache.kafka.reusable.concurrent.KafkaThread
+import org.apache.kafka.reusable.logging.Logging
 
 abstract class ShutdownableThread(val name: String, val isInterruptible: Boolean = true)
         extends KafkaThread(name) with Logging {
   this.setDaemon(false)
-  this.logIdent = "[" + name + "]: "
+  override def logIdent() = "[" + name + "]: "
   private val shutdownInitiated = new CountDownLatch(1)
   private val shutdownComplete = new CountDownLatch(1)
   @volatile private var isStarted: Boolean = false

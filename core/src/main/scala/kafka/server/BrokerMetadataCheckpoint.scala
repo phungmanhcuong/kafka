@@ -20,9 +20,9 @@ package kafka.server
 import java.io._
 import java.nio.file.{Files, NoSuchFileException}
 import java.util.Properties
-
 import kafka.utils._
 import org.apache.kafka.common.utils.Utils
+import org.apache.kafka.reusable.logging.Logging
 
 case class BrokerMetadata(brokerId: Int,
                           clusterId: Option[String]) {

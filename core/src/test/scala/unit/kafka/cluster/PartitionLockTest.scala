@@ -20,7 +20,6 @@ package kafka.cluster
 import java.util.Properties
 import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent._
-
 import kafka.api.{ApiVersion, LeaderAndIsr}
 import kafka.log._
 import kafka.server._
@@ -30,6 +29,7 @@ import org.apache.kafka.common.message.LeaderAndIsrRequestData.LeaderAndIsrParti
 import org.apache.kafka.common.TopicPartition
 import org.apache.kafka.common.record.{MemoryRecords, SimpleRecord}
 import org.apache.kafka.common.utils.Utils
+import org.apache.kafka.reusable.logging.Logging
 import org.junit.Assert.{assertEquals, assertFalse, assertTrue}
 import org.junit.{After, Before, Test}
 import org.mockito.ArgumentMatchers

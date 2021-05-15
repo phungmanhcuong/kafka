@@ -25,7 +25,6 @@ import kafka.utils.CommandLineUtils
 import kafka.utils.CoreUtils
 import kafka.utils.Implicits._
 import kafka.utils.Json
-import kafka.utils.Logging
 import org.apache.kafka.clients.admin.{Admin, AdminClientConfig}
 import org.apache.kafka.common.ElectionType
 import org.apache.kafka.common.TopicPartition
@@ -33,6 +32,8 @@ import org.apache.kafka.common.errors.ClusterAuthorizationException
 import org.apache.kafka.common.errors.ElectionNotNeededException
 import org.apache.kafka.common.errors.TimeoutException
 import org.apache.kafka.common.utils.Utils
+import org.apache.kafka.reusable.logging.Logging
+
 import scala.jdk.CollectionConverters._
 import scala.collection.mutable
 import scala.concurrent.duration._

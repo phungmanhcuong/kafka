@@ -20,12 +20,12 @@ import java.nio.charset.StandardCharsets
 import java.security.{AlgorithmParameters, NoSuchAlgorithmException, SecureRandom}
 import java.security.spec.AlgorithmParameterSpec
 import java.util.Base64
-
 import javax.crypto.{Cipher, SecretKeyFactory}
 import javax.crypto.spec._
 import kafka.utils.PasswordEncoder._
 import org.apache.kafka.common.config.ConfigException
 import org.apache.kafka.common.config.types.Password
+import org.apache.kafka.reusable.logging.Logging
 
 import scala.collection.Map
 

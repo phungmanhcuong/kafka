@@ -19,7 +19,6 @@ package kafka.admin
 
 import java.util
 import java.util.{Collections, Properties}
-
 import joptsimple._
 import kafka.common.AdminCommandFailedException
 import kafka.log.LogConfig
@@ -39,6 +38,7 @@ import org.apache.kafka.common.errors.{ClusterAuthorizationException, InvalidTop
 import org.apache.kafka.common.internals.Topic
 import org.apache.kafka.common.security.JaasUtils
 import org.apache.kafka.common.utils.{Time, Utils}
+import org.apache.kafka.reusable.logging.Logging
 import org.apache.zookeeper.KeeperException.NodeExistsException
 
 import scala.jdk.CollectionConverters._

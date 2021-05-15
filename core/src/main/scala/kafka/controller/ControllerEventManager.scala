@@ -115,7 +115,7 @@ class ControllerEventManager(controllerId: Int,
   def isEmpty: Boolean = queue.isEmpty
 
   class ControllerEventThread(name: String) extends ShutdownableThread(name = name, isInterruptible = false) {
-    logIdent = s"[ControllerEventThread controllerId=$controllerId] "
+    override def logIdent() = s"[ControllerEventThread controllerId=$controllerId] "
 
     override def doWork(): Unit = {
       val dequeued = pollFromEventQueue()

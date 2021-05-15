@@ -17,9 +17,8 @@
 package kafka.server.checkpoints
 
 import java.io.File
-
 import kafka.server.epoch.EpochEntry
-import kafka.utils.Logging
+import org.apache.kafka.reusable.logging.Logging
 import org.junit.Assert._
 import org.junit.Test
 

@@ -19,11 +19,10 @@ package kafka.coordinator.transaction
 
 import java.util
 import java.util.concurrent.{BlockingQueue, ConcurrentHashMap, LinkedBlockingQueue}
-
 import kafka.common.{InterBrokerSendThread, RequestAndCompletionHandler}
 import kafka.metrics.KafkaMetricsGroup
 import kafka.server.{KafkaConfig, MetadataCache}
-import kafka.utils.{CoreUtils, Logging}
+import kafka.utils.CoreUtils
 import kafka.utils.Implicits._
 import org.apache.kafka.clients._
 import org.apache.kafka.common.metrics.Metrics
@@ -34,6 +33,7 @@ import org.apache.kafka.common.requests.{TransactionResult, WriteTxnMarkersReque
 import org.apache.kafka.common.security.JaasContext
 import org.apache.kafka.common.utils.{LogContext, Time}
 import org.apache.kafka.common.{Node, Reconfigurable, TopicPartition}
+import org.apache.kafka.reusable.logging.Logging
 
 import scala.jdk.CollectionConverters._
 import scala.collection.{concurrent, immutable}
@@ -132,7 +132,7 @@ class TransactionMarkerChannelManager(config: KafkaConfig,
                                       txnStateManager: TransactionStateManager,
                                       time: Time) extends InterBrokerSendThread("TxnMarkerSenderThread-" + config.brokerId, networkClient, time) with Logging with KafkaMetricsGroup {
 
-  this.logIdent = "[Transaction Marker Channel Manager " + config.brokerId + "]: "
+  override def logIdent() = "[Transaction Marker Channel Manager " + config.brokerId + "]: "
 
   private val interBrokerListenerName: ListenerName = config.interBrokerListenerName
 

@@ -17,9 +17,9 @@
 
 package kafka.server
 
-import kafka.utils.Logging
 import org.apache.kafka.common.feature.{Features, FinalizedVersionRange, SupportedVersionRange}
 import org.apache.kafka.common.feature.Features._
+import org.apache.kafka.reusable.logging.Logging
 
 import scala.jdk.CollectionConverters._
 

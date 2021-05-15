@@ -18,17 +18,8 @@
 package kafka.serializer
 
 import java.nio.ByteBuffer
-
 import kafka.utils.VerifiableProperties
-
-/**
- * A decoder is a method of turning byte arrays into objects.
- * An implementation is required to provide a constructor that
- * takes a VerifiableProperties instance.
- */
-trait Decoder[T] {
-  def fromBytes(bytes: Array[Byte]): T
-}
+import org.apache.kafka.reusable.serializer.Decoder
 
 /**
  * The default implementation does nothing, just returns the same byte array it takes in.

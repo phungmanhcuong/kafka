@@ -18,11 +18,9 @@
 package kafka.tools
 
 import java.util.Collections
-
 import kafka.network.RequestChannel
 import kafka.raft.KafkaNetworkChannel
 import kafka.server.ApiRequestHandler
-import kafka.utils.Logging
 import org.apache.kafka.common.TopicPartition
 import org.apache.kafka.common.feature.Features
 import org.apache.kafka.common.internals.FatalExitError
@@ -32,6 +30,7 @@ import org.apache.kafka.common.protocol.{ApiKeys, Errors}
 import org.apache.kafka.common.requests.{AbstractRequest, AbstractResponse, ApiVersionsResponse, MetadataRequest, MetadataResponse, ProduceRequest, ProduceResponse}
 import org.apache.kafka.common.utils.Time
 import org.apache.kafka.raft.{AckMode, RaftClient}
+import org.apache.kafka.reusable.logging.Logging
 
 import scala.jdk.CollectionConverters._
 

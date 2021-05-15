@@ -18,12 +18,12 @@
 package kafka
 
 import java.util.Properties
-
 import joptsimple.OptionParser
 import kafka.utils.Implicits._
 import kafka.server.{KafkaServer, KafkaServerStartable}
-import kafka.utils.{CommandLineUtils, Exit, Logging}
+import kafka.utils.{CommandLineUtils, Exit}
 import org.apache.kafka.common.utils.{Java, LoggingSignalHandler, OperatingSystem, Utils}
+import org.apache.kafka.reusable.logging.Logging
 
 import scala.jdk.CollectionConverters._
 

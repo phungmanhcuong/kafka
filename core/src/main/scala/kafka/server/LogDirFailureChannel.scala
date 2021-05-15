@@ -18,10 +18,10 @@
 
 package kafka.server
 
+import org.apache.kafka.reusable.logging.Logging
+
 import java.io.IOException
 import java.util.concurrent.{ArrayBlockingQueue, ConcurrentHashMap}
-
-import kafka.utils.Logging
 
 /*
  * LogDirFailureChannel allows an external thread to block waiting for new offline log dirs.

@@ -48,6 +48,17 @@
   <allow pkg="org.apache.kafka.common.errors" exact-match="true" />
   <allow pkg="org.apache.kafka.common.memory" />
 
+  <subpackage name="reusable">
+    <allow pkg="scala"/>
+    <allow pkg="scala"/>
+    <allow pkg="com.typesafe.scalalogging.Logger"/>
+
+    <subpackage name="serializer">
+      <allow pkg="scala"/>
+      <allow pkg="scala"/>
+    </subpackage>
+  </subpackage>
+
   <subpackage name="common">
     <allow class="org.apache.kafka.clients.consumer.ConsumerRecord" exact-match="true" />
     <disallow pkg="org.apache.kafka.clients" />

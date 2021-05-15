@@ -18,8 +18,8 @@
 package kafka.utils
 
 import java.util.regex.{Pattern, PatternSyntaxException}
-
 import org.apache.kafka.common.internals.Topic
+import org.apache.kafka.reusable.logging.Logging
 
 sealed abstract class TopicFilter(rawRegex: String) extends Logging {
 

@@ -17,16 +17,15 @@
 package kafka.security.auth
 
 import java.util
-
 import kafka.network.RequestChannel.Session
 import kafka.security.auth.SimpleAclAuthorizer.BaseAuthorizer
 import kafka.security.authorizer.{AclAuthorizer, AuthorizerUtils, AuthorizerWrapper}
-import kafka.utils._
 import kafka.zk.ZkVersion
 import org.apache.kafka.common.acl.{AccessControlEntryFilter, AclBinding, AclBindingFilter, AclOperation, AclPermissionType}
 import org.apache.kafka.common.errors.ApiException
 import org.apache.kafka.common.resource.{PatternType, ResourcePatternFilter}
 import org.apache.kafka.common.security.auth.KafkaPrincipal
+import org.apache.kafka.reusable.logging.Logging
 import org.apache.kafka.server.authorizer.{Action, AuthorizableRequestContext, AuthorizationResult}
 
 import scala.collection.mutable

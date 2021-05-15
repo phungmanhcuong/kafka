@@ -19,8 +19,8 @@ package kafka.server
 
 import java.nio.charset.StandardCharsets
 import java.nio.file.Files
-
-import kafka.utils.{Logging, MockTime}
+import kafka.utils.MockTime
+import org.apache.kafka.reusable.logging.Logging
 import org.apache.kafka.test.TestUtils
 import org.junit.Assert.{assertEquals, assertFalse, assertTrue}
 import org.junit.{Rule, Test}
@@ -53,7 +53,7 @@ class LinuxIoMetricsCollectorTest extends Logging {
     val time = new MockTime(100, 1000)
     testDirectory.writeProcFile(123L, 456L)
     val collector = new LinuxIoMetricsCollector(testDirectory.baseDir.getAbsolutePath,
-      time, logger.underlying)
+      time, logger)
 
     // Test that we can read the values we wrote.
     assertTrue(collector.usable())
@@ -76,7 +76,7 @@ class LinuxIoMetricsCollectorTest extends Logging {
     val testDirectory = new TestDirectory()
     val time = new MockTime(100, 1000)
     val collector = new LinuxIoMetricsCollector(testDirectory.baseDir.getAbsolutePath,
-      time, logger.underlying)
+      time, logger)
 
     // Test that we can't read the file, since it hasn't been written.
     assertFalse(collector.usable())

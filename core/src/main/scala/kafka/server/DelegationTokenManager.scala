@@ -21,12 +21,11 @@ import java.nio.ByteBuffer
 import java.nio.charset.StandardCharsets
 import java.security.InvalidKeyException
 import java.util.Base64
-
 import javax.crypto.spec.SecretKeySpec
 import javax.crypto.{Mac, SecretKey}
 import kafka.common.{NotificationHandler, ZkNodeChangeNotificationListener}
 import kafka.metrics.KafkaMetricsGroup
-import kafka.utils.{CoreUtils, Json, Logging}
+import kafka.utils.{CoreUtils, Json}
 import kafka.zk.{DelegationTokenChangeNotificationSequenceZNode, DelegationTokenChangeNotificationZNode, DelegationTokensZNode, KafkaZkClient}
 import org.apache.kafka.common.protocol.Errors
 import org.apache.kafka.common.security.auth.KafkaPrincipal
@@ -35,6 +34,7 @@ import org.apache.kafka.common.security.scram.ScramCredential
 import org.apache.kafka.common.security.token.delegation.internals.DelegationTokenCache
 import org.apache.kafka.common.security.token.delegation.{DelegationToken, TokenInformation}
 import org.apache.kafka.common.utils.{Sanitizer, SecurityUtils, Time}
+import org.apache.kafka.reusable.logging.Logging
 
 import scala.jdk.CollectionConverters._
 import scala.collection.mutable
@@ -161,7 +161,7 @@ class DelegationTokenManager(val config: KafkaConfig,
                              val tokenCache: DelegationTokenCache,
                              val time: Time,
                              val zkClient: KafkaZkClient) extends Logging with KafkaMetricsGroup {
-  this.logIdent = s"[Token Manager on Broker ${config.brokerId}]: "
+  override def logIdent() = s"[Token Manager on Broker ${config.brokerId}]: "
 
   import DelegationTokenManager._
 

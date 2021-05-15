@@ -22,12 +22,12 @@ import java.nio.channels.FileChannel
 import java.nio.file.Files
 import java.nio.{ByteBuffer, MappedByteBuffer}
 import java.util.concurrent.locks.{Lock, ReentrantLock}
-
 import kafka.common.IndexOffsetOverflowException
 import kafka.log.IndexSearchType.IndexSearchEntity
 import kafka.utils.CoreUtils.inLock
-import kafka.utils.{CoreUtils, Logging}
+import kafka.utils.CoreUtils
 import org.apache.kafka.common.utils.{ByteBufferUnmapper, OperatingSystem, Utils}
+import org.apache.kafka.reusable.logging.Logging
 
 /**
  * The abstract index class which holds entry format agnostic methods.
@@ -431,7 +431,6 @@ abstract class AbstractIndex(@volatile private var _file: File, val baseOffset: 
 }
 
 object AbstractIndex extends Logging {
-  override val loggerName: String = classOf[AbstractIndex].getName
 }
 
 object IndexSearchType extends Enumeration {

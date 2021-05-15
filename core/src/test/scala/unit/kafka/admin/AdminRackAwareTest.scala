@@ -16,8 +16,8 @@
  */
 package kafka.admin
 
-import kafka.utils.Logging
 import org.apache.kafka.common.errors.InvalidReplicationFactorException
+import org.apache.kafka.reusable.logging.Logging
 import org.junit.Assert._
 import org.junit.Test
 import org.scalatest.Assertions._

@@ -19,11 +19,10 @@ package kafka.server.checkpoints
 import java.io._
 import java.nio.charset.StandardCharsets
 import java.nio.file.{FileAlreadyExistsException, Files, Paths}
-
 import kafka.server.LogDirFailureChannel
-import kafka.utils.Logging
 import org.apache.kafka.common.errors.KafkaStorageException
 import org.apache.kafka.common.utils.Utils
+import org.apache.kafka.reusable.logging.Logging
 
 import scala.collection.{Seq, mutable}
 

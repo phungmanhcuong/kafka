@@ -19,7 +19,6 @@ package kafka.metrics
 
 import java.lang.management.ManagementFactory
 import java.util.Properties
-
 import javax.management.ObjectName
 import com.yammer.metrics.core.MetricPredicate
 import org.junit.Test
@@ -33,6 +32,7 @@ import scala.jdk.CollectionConverters._
 import kafka.log.LogConfig
 import org.apache.kafka.common.TopicPartition
 import org.apache.kafka.common.metrics.JmxReporter
+import org.apache.kafka.reusable.logging.Logging
 
 class MetricsTest extends KafkaServerTestHarness with Logging {
   val numNodes = 2

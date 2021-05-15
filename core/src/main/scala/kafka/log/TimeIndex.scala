@@ -19,11 +19,10 @@ package kafka.log
 
 import java.io.File
 import java.nio.ByteBuffer
-
 import kafka.utils.CoreUtils.inLock
-import kafka.utils.Logging
 import org.apache.kafka.common.errors.InvalidOffsetException
 import org.apache.kafka.common.record.RecordBatch
+import org.apache.kafka.reusable.logging.Logging
 
 /**
  * An index that maps from the timestamp to the logical offsets of the messages in a segment. This index might be
@@ -225,5 +224,4 @@ class TimeIndex(_file: File, baseOffset: Long, maxIndexSize: Int = -1, writable:
 }
 
 object TimeIndex extends Logging {
-  override val loggerName: String = classOf[TimeIndex].getName
 }
