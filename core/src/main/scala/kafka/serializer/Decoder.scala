@@ -24,7 +24,7 @@ import org.apache.kafka.reusable.serializer.Decoder
 /**
  * The default implementation does nothing, just returns the same byte array it takes in.
  */
-class DefaultDecoder(props: VerifiableProperties = null) extends Decoder[Array[Byte]] {
+class DefaultDecoder(props: VerifiableProperties = null) extends Decoder[Array[Byte], Array[Byte]] {
   def fromBytes(bytes: Array[Byte]): Array[Byte] = bytes
 }
 
@@ -32,7 +32,7 @@ class DefaultDecoder(props: VerifiableProperties = null) extends Decoder[Array[B
  * The string decoder translates bytes into strings. It uses UTF8 by default but takes
  * an optional property serializer.encoding to control this.
  */
-class StringDecoder(props: VerifiableProperties = null) extends Decoder[String] {
+class StringDecoder(props: VerifiableProperties = null) extends Decoder[Array[Byte], String] {
   val encoding =
     if(props == null)
       "UTF8"
@@ -47,7 +47,7 @@ class StringDecoder(props: VerifiableProperties = null) extends Decoder[String] 
 /**
   * The long decoder translates bytes into longs.
   */
-class LongDecoder(props: VerifiableProperties = null) extends Decoder[Long] {
+class LongDecoder(props: VerifiableProperties = null) extends Decoder[Array[Byte], Long] {
   def fromBytes(bytes: Array[Byte]): Long = {
     ByteBuffer.wrap(bytes).getLong
   }
@@ -56,7 +56,7 @@ class LongDecoder(props: VerifiableProperties = null) extends Decoder[Long] {
 /**
   * The integer decoder translates bytes into integers.
   */
-class IntegerDecoder(props: VerifiableProperties = null) extends Decoder[Integer] {
+class IntegerDecoder(props: VerifiableProperties = null) extends Decoder[Array[Byte], Integer] {
   def fromBytes(bytes: Array[Byte]): Integer = {
     ByteBuffer.wrap(bytes).getInt()
   }

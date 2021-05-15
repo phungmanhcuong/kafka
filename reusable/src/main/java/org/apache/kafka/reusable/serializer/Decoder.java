@@ -17,14 +17,11 @@
 
 package org.apache.kafka.reusable.serializer;
 
-import scala.Array;
-import scala.Byte;
-
 /**
  * A decoder is a method of turning byte arrays into objects.
  * An implementation is required to provide a constructor that
  * takes a VerifiableProperties instance.
  */
-public interface Decoder<T> {
-    T fromBytes(Array<Byte> bytes);
+public interface Decoder<In, Out> {
+    Out fromBytes(In bytes);
 }
