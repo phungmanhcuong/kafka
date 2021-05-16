@@ -34,7 +34,7 @@ import scala.collection.mutable
 import scala.jdk.CollectionConverters._
 
 
-trait BrokerToControllerChannelManager extends Server[Unit] {
+trait BrokerToControllerChannelManager {
   def sendRequest(request: AbstractRequest.Builder[_ <: AbstractRequest],
                   callback: RequestCompletionHandler): Unit
 
