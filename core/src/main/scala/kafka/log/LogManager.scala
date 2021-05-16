@@ -21,7 +21,6 @@ import java.io._
 import java.nio.file.Files
 import java.util.concurrent._
 import java.util.concurrent.atomic.AtomicInteger
-
 import kafka.metrics.KafkaMetricsGroup
 import kafka.server.checkpoints.OffsetCheckpointFile
 import kafka.server.{BrokerState, RecoveringFromUncleanShutdown, _}
@@ -30,6 +29,7 @@ import kafka.zk.KafkaZkClient
 import org.apache.kafka.common.{KafkaException, TopicPartition}
 import org.apache.kafka.common.utils.Time
 import org.apache.kafka.common.errors.{KafkaStorageException, LogDirNotFoundException}
+import org.apache.kafka.reusable.startable.ILogManager
 
 import scala.jdk.CollectionConverters._
 import scala.collection._
@@ -62,7 +62,7 @@ class LogManager(logDirs: Seq[File],
                  val brokerState: BrokerState,
                  brokerTopicStats: BrokerTopicStats,
                  logDirFailureChannel: LogDirFailureChannel,
-                 time: Time) extends Logging with KafkaMetricsGroup {
+                 time: Time) extends Logging with KafkaMetricsGroup with ILogManager[Unit] {
 
   import LogManager._
 
