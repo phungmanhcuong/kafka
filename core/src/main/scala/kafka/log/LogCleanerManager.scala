@@ -20,16 +20,16 @@ package kafka.log
 import java.io.File
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.locks.ReentrantLock
+
 import kafka.common.{KafkaException, LogCleaningAbortedException}
 import kafka.metrics.KafkaMetricsGroup
 import kafka.server.LogDirFailureChannel
 import kafka.server.checkpoints.OffsetCheckpointFile
 import kafka.utils.CoreUtils._
-import kafka.utils.Pool
+import kafka.utils.{Logging, Pool}
 import org.apache.kafka.common.TopicPartition
 import org.apache.kafka.common.utils.Time
 import org.apache.kafka.common.errors.KafkaStorageException
-import org.apache.kafka.reusable.logging.Logging
 
 import scala.collection.{Iterable, Seq, mutable}
 
@@ -62,6 +62,9 @@ private[log] class LogCleanerManager(val logDirs: Seq[File],
                                      val logs: Pool[TopicPartition, Log],
                                      val logDirFailureChannel: LogDirFailureChannel) extends Logging with KafkaMetricsGroup {
   import LogCleanerManager._
+
+
+  protected override def loggerName = classOf[LogCleaner].getName
 
   // package-private for testing
   private[log] val offsetCheckpointFile = "cleaner-offset-checkpoint"

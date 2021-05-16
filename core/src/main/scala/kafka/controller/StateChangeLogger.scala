@@ -17,9 +17,11 @@
 
 package kafka.controller
 
-import org.apache.kafka.reusable.logging.Logging
+import com.typesafe.scalalogging.Logger
+import kafka.utils.Logging
 
-object StateChangeLogger extends Logging {
+object StateChangeLogger {
+  private val logger = Logger("state.change.logger")
 }
 
 /**
@@ -35,12 +37,10 @@ class StateChangeLogger(brokerId: Int, inControllerContext: Boolean, controllerE
   override lazy val logger = StateChangeLogger.logger
 
   locally {
-
+    val prefix = if (inControllerContext) "Controller" else "Broker"
+    val epochEntry = controllerEpoch.fold("")(epoch => s" epoch=$epoch")
+    logIdent = s"[$prefix id=$brokerId$epochEntry] "
   }
-
-  val prefix = if (inControllerContext) "Controller" else "Broker"
-  val epochEntry = controllerEpoch.fold("")(epoch => s" epoch=$epoch")
-  override def logIdent() = s"[$prefix id=$brokerId$epochEntry] "
 
   def withControllerEpoch(controllerEpoch: Int): StateChangeLogger =
     new StateChangeLogger(brokerId, inControllerContext, Some(controllerEpoch))

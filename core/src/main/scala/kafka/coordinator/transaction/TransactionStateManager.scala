@@ -21,11 +21,12 @@ import java.util.Properties
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.locks.ReentrantReadWriteLock
+
 import kafka.log.{AppendOrigin, LogConfig}
 import kafka.message.UncompressedCodec
 import kafka.server.{Defaults, FetchLogEnd, ReplicaManager}
 import kafka.utils.CoreUtils.{inReadLock, inWriteLock}
-import kafka.utils.{Pool, Scheduler}
+import kafka.utils.{Logging, Pool, Scheduler}
 import kafka.utils.Implicits._
 import kafka.zk.KafkaZkClient
 import org.apache.kafka.common.internals.Topic
@@ -37,7 +38,6 @@ import org.apache.kafka.common.requests.ProduceResponse.PartitionResponse
 import org.apache.kafka.common.requests.TransactionResult
 import org.apache.kafka.common.utils.{Time, Utils}
 import org.apache.kafka.common.{KafkaException, TopicPartition}
-import org.apache.kafka.reusable.logging.Logging
 
 import scala.jdk.CollectionConverters._
 import scala.collection.mutable
@@ -79,7 +79,7 @@ class TransactionStateManager(brokerId: Int,
                               time: Time,
                               metrics: Metrics) extends Logging {
 
-  override def logIdent() = "[Transaction State Manager " + brokerId + "]: "
+  this.logIdent = "[Transaction State Manager " + brokerId + "]: "
 
   type SendTxnMarkersCallback = (Int, TransactionResult, TransactionMetadata, TxnTransitMetadata) => Unit
 

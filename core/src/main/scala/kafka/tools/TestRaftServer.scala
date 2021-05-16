@@ -22,6 +22,7 @@ import java.nio.ByteBuffer
 import java.nio.file.Files
 import java.util.concurrent.CountDownLatch
 import java.util.{Properties, Random}
+
 import joptsimple.OptionParser
 import kafka.log.{Log, LogConfig, LogManager}
 import kafka.network.{ConnectionQuotas, Processor, RequestChannel, SocketServer}
@@ -29,7 +30,7 @@ import kafka.raft.{KafkaFuturePurgatory, KafkaMetadataLog, KafkaNetworkChannel}
 import kafka.security.CredentialProvider
 import kafka.server.{BrokerTopicStats, KafkaConfig, KafkaRequestHandlerPool, KafkaServer, LogDirFailureChannel}
 import kafka.utils.timer.SystemTimer
-import kafka.utils.{CommandLineUtils, CoreUtils, Exit, KafkaScheduler, ShutdownableThread}
+import kafka.utils.{CommandLineUtils, CoreUtils, Exit, KafkaScheduler, Logging, ShutdownableThread}
 import org.apache.kafka.clients.{ApiVersions, ClientDnsLookup, ManualMetadataUpdater, NetworkClient}
 import org.apache.kafka.common.TopicPartition
 import org.apache.kafka.common.config.ConfigException
@@ -44,7 +45,6 @@ import org.apache.kafka.common.security.token.delegation.internals.DelegationTok
 import org.apache.kafka.common.utils.{LogContext, Time, Utils}
 import org.apache.kafka.raft.internals.LogOffset
 import org.apache.kafka.raft.{FileBasedStateStore, KafkaRaftClient, QuorumState, RaftConfig}
-import org.apache.kafka.reusable.logging.Logging
 
 import scala.jdk.CollectionConverters._
 

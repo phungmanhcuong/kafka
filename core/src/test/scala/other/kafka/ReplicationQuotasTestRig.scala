@@ -20,11 +20,12 @@ package kafka
 import java.io.{File, PrintWriter}
 import java.nio.charset.StandardCharsets
 import java.nio.file.{Files, StandardOpenOption}
+
 import javax.imageio.ImageIO
 import kafka.admin.ReassignPartitionsCommand
 import kafka.server.{KafkaConfig, KafkaServer, QuotaType}
 import kafka.utils.TestUtils._
-import kafka.utils.{Exit, TestUtils}
+import kafka.utils.{Exit, Logging, TestUtils}
 import kafka.zk.{ReassignPartitionsZNode, ZooKeeperTestHarness}
 import org.apache.kafka.clients.admin.{Admin, AdminClientConfig}
 import org.apache.kafka.clients.producer.ProducerRecord
@@ -32,7 +33,6 @@ import org.apache.kafka.common.TopicPartition
 import org.apache.kafka.common.network.ListenerName
 import org.apache.kafka.common.security.auth.SecurityProtocol
 import org.apache.kafka.common.utils.Utils
-import org.apache.kafka.reusable.logging.Logging
 import org.jfree.chart.plot.PlotOrientation
 import org.jfree.chart.{ChartFactory, ChartFrame, JFreeChart}
 import org.jfree.data.xy.{XYSeries, XYSeriesCollection}

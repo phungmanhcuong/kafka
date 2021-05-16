@@ -18,28 +18,37 @@
 package kafka.serializer
 
 import java.nio.ByteBuffer
+
 import kafka.utils.VerifiableProperties
-import org.apache.kafka.reusable.serializer.Decoder
+
+/**
+ * A decoder is a method of turning byte arrays into objects.
+ * An implementation is required to provide a constructor that
+ * takes a VerifiableProperties instance.
+ */
+trait Decoder[T] {
+  def fromBytes(bytes: Array[Byte]): T
+}
 
 /**
  * The default implementation does nothing, just returns the same byte array it takes in.
  */
-class DefaultDecoder(props: VerifiableProperties = null) extends Decoder[Array[Byte], Array[Byte]] {
-  def decode(bytes: Array[Byte]): Array[Byte] = bytes
+class DefaultDecoder(props: VerifiableProperties = null) extends Decoder[Array[Byte]] {
+  def fromBytes(bytes: Array[Byte]): Array[Byte] = bytes
 }
 
 /**
  * The string decoder translates bytes into strings. It uses UTF8 by default but takes
  * an optional property serializer.encoding to control this.
  */
-class StringDecoder(props: VerifiableProperties = null) extends Decoder[Array[Byte], String] {
+class StringDecoder(props: VerifiableProperties = null) extends Decoder[String] {
   val encoding =
     if(props == null)
       "UTF8"
     else
       props.getString("serializer.encoding", "UTF8")
 
-  def decode(bytes: Array[Byte]): String = {
+  def fromBytes(bytes: Array[Byte]): String = {
     new String(bytes, encoding)
   }
 }
@@ -47,8 +56,8 @@ class StringDecoder(props: VerifiableProperties = null) extends Decoder[Array[By
 /**
   * The long decoder translates bytes into longs.
   */
-class LongDecoder(props: VerifiableProperties = null) extends Decoder[Array[Byte], Long] {
-  def decode(bytes: Array[Byte]): Long = {
+class LongDecoder(props: VerifiableProperties = null) extends Decoder[Long] {
+  def fromBytes(bytes: Array[Byte]): Long = {
     ByteBuffer.wrap(bytes).getLong
   }
 }
@@ -56,8 +65,8 @@ class LongDecoder(props: VerifiableProperties = null) extends Decoder[Array[Byte
 /**
   * The integer decoder translates bytes into integers.
   */
-class IntegerDecoder(props: VerifiableProperties = null) extends Decoder[Array[Byte], Integer] {
-  def decode(bytes: Array[Byte]): Integer = {
+class IntegerDecoder(props: VerifiableProperties = null) extends Decoder[Integer] {
+  def fromBytes(bytes: Array[Byte]): Integer = {
     ByteBuffer.wrap(bytes).getInt()
   }
 }

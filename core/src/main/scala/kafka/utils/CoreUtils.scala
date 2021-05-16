@@ -17,22 +17,25 @@
 
 package kafka.utils
 
+import java.io._
+import java.nio._
+import java.nio.channels._
+import java.util.concurrent.locks.{Lock, ReadWriteLock}
+import java.lang.management._
+import java.util.{Base64, Properties, UUID}
+
 import com.typesafe.scalalogging.Logger
+import javax.management._
+
+import scala.collection._
+import scala.collection.{Seq, mutable}
 import kafka.cluster.EndPoint
 import org.apache.kafka.common.network.ListenerName
 import org.apache.kafka.common.security.auth.SecurityProtocol
 import org.apache.kafka.common.utils.Utils
-import org.apache.kafka.reusable.logging.Logging
 import org.slf4j.event.Level
 
-import java.io._
-import java.lang.management._
-import java.nio._
-import java.nio.channels._
-import java.util.concurrent.locks.{Lock, ReadWriteLock}
-import java.util.{Base64, Properties, UUID}
-import javax.management._
-import scala.collection.{Seq, mutable, _}
+import scala.annotation.nowarn
 
 /**
  * General helper functions!
@@ -47,6 +50,12 @@ import scala.collection.{Seq, mutable, _}
  */
 object CoreUtils {
   private val logger = Logger(getClass)
+
+  /**
+   * Return the smallest element in `iterable` if it is not empty. Otherwise return `ifEmpty`.
+   */
+  def min[A, B >: A](iterable: Iterable[A], ifEmpty: A)(implicit cmp: Ordering[B]): A =
+    if (iterable.isEmpty) ifEmpty else iterable.min(cmp)
 
   /**
     * Do the given action and log any exceptions thrown without rethrowing them.
@@ -309,9 +318,10 @@ object CoreUtils {
     }
   }
 
-//  @nowarn("cat=unused") // see below for explanation
+  @nowarn("cat=unused") // see below for explanation
   def groupMapReduce[T, K, B](elements: Iterable[T])(key: T => K)(f: T => B)(reduce: (B, B) => B): Map[K, B] = {
     // required for Scala 2.12 compatibility, unused in Scala 2.13 and hence we need to suppres the unused warning
+    import scala.collection.compat._
     elements.groupMapReduce(key)(f)(reduce)
   }
 

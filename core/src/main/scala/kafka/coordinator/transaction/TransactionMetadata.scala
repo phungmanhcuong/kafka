@@ -17,11 +17,11 @@
 package kafka.coordinator.transaction
 
 import java.util.concurrent.locks.ReentrantLock
-import kafka.utils.{CoreUtils, nonthreadsafe}
+
+import kafka.utils.{CoreUtils, Logging, nonthreadsafe}
 import org.apache.kafka.common.TopicPartition
 import org.apache.kafka.common.protocol.Errors
 import org.apache.kafka.common.record.RecordBatch
-import org.apache.kafka.reusable.logging.Logging
 
 import scala.collection.{immutable, mutable}
 

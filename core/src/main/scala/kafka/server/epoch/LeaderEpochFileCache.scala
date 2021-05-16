@@ -18,11 +18,12 @@ package kafka.server.epoch
 
 import java.util
 import java.util.concurrent.locks.ReentrantReadWriteLock
+
 import kafka.server.checkpoints.LeaderEpochCheckpoint
 import kafka.utils.CoreUtils._
+import kafka.utils.Logging
 import org.apache.kafka.common.TopicPartition
 import org.apache.kafka.common.requests.EpochEndOffset._
-import org.apache.kafka.reusable.logging.Logging
 
 import scala.collection.{Seq, mutable}
 import scala.jdk.CollectionConverters._
@@ -40,7 +41,7 @@ import scala.jdk.CollectionConverters._
 class LeaderEpochFileCache(topicPartition: TopicPartition,
                            logEndOffset: () => Long,
                            checkpoint: LeaderEpochCheckpoint) extends Logging {
-  override def logIdent() = s"[LeaderEpochCache $topicPartition] "
+  this.logIdent = s"[LeaderEpochCache $topicPartition] "
 
   private val lock = new ReentrantReadWriteLock()
   private val epochs = new util.TreeMap[Int, EpochEntry]()

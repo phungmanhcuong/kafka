@@ -42,4 +42,4 @@ case $COMMAND in
 esac
 
 echo "Run Kafka with base_dir: $base_dir, args: $EXTRA_ARGS and config:" "$@"
-exec $base_dir/kafka-run-class.sh $EXTRA_ARGS kafka.Kafka "$@"
+exec $base_dir/kafka-run-class.sh $EXTRA_ARGS kafka.KafkaJava "$@"

@@ -24,6 +24,7 @@ import java.util.Optional
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.locks.ReentrantLock
+
 import com.yammer.metrics.core.Gauge
 import kafka.api.{ApiVersion, KAFKA_0_10_1_IV0, KAFKA_2_1_IV0, KAFKA_2_1_IV1, KAFKA_2_3_IV0}
 import kafka.common.OffsetAndMetadata
@@ -48,7 +49,6 @@ import org.apache.kafka.common.requests.ProduceResponse.PartitionResponse
 import org.apache.kafka.common.requests.{OffsetCommitRequest, OffsetFetchResponse}
 import org.apache.kafka.common.utils.{Time, Utils}
 import org.apache.kafka.common.{KafkaException, MessageFormatter, TopicPartition}
-import org.apache.kafka.reusable.logging.Logging
 
 import scala.collection._
 import scala.collection.mutable.ArrayBuffer
@@ -119,7 +119,7 @@ class GroupMetadataManager(brokerId: Int,
       "group-coordinator-metrics",
       "The total number of expired offsets")))
 
-  override def logIdent() = s"[GroupMetadataManager brokerId=$brokerId] "
+  this.logIdent = s"[GroupMetadataManager brokerId=$brokerId] "
 
   private def recreateGauge[T](name: String, gauge: Gauge[T]): Gauge[T] = {
     removeMetric(name)

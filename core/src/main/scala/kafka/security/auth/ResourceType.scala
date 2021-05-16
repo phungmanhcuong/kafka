@@ -27,7 +27,7 @@ sealed trait ResourceType extends BaseEnum with Ordered[ ResourceType ] {
   // this method output will not include "All" Operation type
   def supportedOperations: Set[Operation]
 
-  override def compare(that: ResourceType): Int = this.getName compare that.getName
+  override def compare(that: ResourceType): Int = this.name compare that.name
 }
 
 @deprecated("Use org.apache.kafka.common.resource.ResourceType", "Since 2.5")
@@ -36,8 +36,6 @@ case object Topic extends ResourceType {
   val error = Errors.TOPIC_AUTHORIZATION_FAILED
   val toJava = JResourceType.TOPIC
   val supportedOperations = Set(Read, Write, Create, Describe, Delete, Alter, DescribeConfigs, AlterConfigs)
-
-  override def getName: String = name
 }
 
 @deprecated("Use org.apache.kafka.common.resource.ResourceType", "Since 2.5")
@@ -46,8 +44,6 @@ case object Group extends ResourceType {
   val error = Errors.GROUP_AUTHORIZATION_FAILED
   val toJava = JResourceType.GROUP
   val supportedOperations = Set(Read, Describe, Delete)
-
-  override def getName: String = name
 }
 
 @deprecated("Use org.apache.kafka.common.resource.ResourceType", "Since 2.5")
@@ -56,8 +52,6 @@ case object Cluster extends ResourceType {
   val error = Errors.CLUSTER_AUTHORIZATION_FAILED
   val toJava = JResourceType.CLUSTER
   val supportedOperations = Set(Create, ClusterAction, DescribeConfigs, AlterConfigs, IdempotentWrite, Alter, Describe)
-
-  override def getName: String = name
 }
 
 @deprecated("Use org.apache.kafka.common.resource.ResourceType", "Since 2.5")
@@ -66,8 +60,6 @@ case object TransactionalId extends ResourceType {
   val error = Errors.TRANSACTIONAL_ID_AUTHORIZATION_FAILED
   val toJava = JResourceType.TRANSACTIONAL_ID
   val supportedOperations = Set(Describe, Write)
-
-  override def getName: String = name
 }
 
 @deprecated("Use org.apache.kafka.common.resource.ResourceType", "Since 2.5")
@@ -76,15 +68,13 @@ case object DelegationToken extends ResourceType {
   val error = Errors.DELEGATION_TOKEN_AUTHORIZATION_FAILED
   val toJava = JResourceType.DELEGATION_TOKEN
   val supportedOperations : Set[Operation] = Set(Describe)
-
-  override def getName: String = name
 }
 
 @deprecated("Use org.apache.kafka.common.resource.ResourceType", "Since 2.5")
 object ResourceType {
 
   def fromString(resourceType: String): ResourceType = {
-    val rType = values.find(rType => rType.getName.equalsIgnoreCase(resourceType))
+    val rType = values.find(rType => rType.name.equalsIgnoreCase(resourceType))
     rType.getOrElse(throw new KafkaException(resourceType + " not a valid resourceType name. The valid names are " + values.mkString(",")))
   }
 

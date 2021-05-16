@@ -20,11 +20,12 @@ import java.lang
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.atomic.{AtomicBoolean, AtomicLong, AtomicReference}
 import java.util.function.Predicate
+
 import kafka.server.{DelayedOperation, DelayedOperationPurgatory}
+import kafka.utils.Logging
 import kafka.utils.timer.Timer
 import org.apache.kafka.common.errors.TimeoutException
 import org.apache.kafka.raft.FuturePurgatory
-import org.apache.kafka.reusable.logging.Logging
 
 /**
  * Simple purgatory shim for integration with the Raft library.

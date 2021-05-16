@@ -18,11 +18,12 @@ package kafka.admin
 
 import java.util
 import java.util.Properties
+
 import kafka.admin.ConfigCommand.ConfigCommandOptions
 import kafka.api.ApiVersion
 import kafka.cluster.{Broker, EndPoint}
 import kafka.server.{ConfigEntityName, ConfigType, KafkaConfig}
-import kafka.utils.Exit
+import kafka.utils.{Exit, Logging}
 import kafka.zk.{AdminZkClient, BrokerInfo, KafkaZkClient, ZooKeeperTestHarness}
 import org.apache.kafka.clients.admin._
 import org.apache.kafka.common.Node
@@ -34,7 +35,6 @@ import org.apache.kafka.common.quota.{ClientQuotaAlteration, ClientQuotaEntity, 
 import org.apache.kafka.common.security.auth.SecurityProtocol
 import org.apache.kafka.common.security.scram.internals.ScramCredentialUtils
 import org.apache.kafka.common.utils.Sanitizer
-import org.apache.kafka.reusable.logging.Logging
 import org.apache.kafka.test.TestUtils
 import org.easymock.EasyMock
 import org.junit.Assert._

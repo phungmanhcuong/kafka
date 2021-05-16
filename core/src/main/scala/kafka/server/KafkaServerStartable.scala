@@ -18,9 +18,9 @@
 package kafka.server
 
 import java.util.Properties
+
 import kafka.metrics.KafkaMetricsReporter
-import kafka.utils.{Exit, VerifiableProperties}
-import org.apache.kafka.reusable.logging.Logging
+import kafka.utils.{Exit, Logging, VerifiableProperties}
 
 import scala.collection.Seq
 

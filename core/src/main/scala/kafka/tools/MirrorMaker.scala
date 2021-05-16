@@ -23,6 +23,7 @@ import java.util.concurrent.atomic.{AtomicBoolean, AtomicInteger}
 import java.util.concurrent.CountDownLatch
 import java.util.regex.Pattern
 import java.util.{Collections, Properties}
+
 import kafka.consumer.BaseConsumerRecord
 import kafka.metrics.KafkaMetricsGroup
 import kafka.utils._
@@ -34,7 +35,6 @@ import org.apache.kafka.common.record.RecordBatch
 import org.apache.kafka.common.serialization.{ByteArrayDeserializer, ByteArraySerializer}
 import org.apache.kafka.common.utils.{Time, Utils}
 import org.apache.kafka.common.{KafkaException, TopicPartition}
-import org.apache.kafka.reusable.logging.Logging
 
 import scala.annotation.nowarn
 import scala.jdk.CollectionConverters._
@@ -187,7 +187,7 @@ object MirrorMaker extends Logging with KafkaMetricsGroup {
     private val shutdownLatch: CountDownLatch = new CountDownLatch(1)
     private var lastOffsetCommitMs = System.currentTimeMillis()
     @volatile private var shuttingDown: Boolean = false
-    override def logIdent() = "[%s] ".format(threadName)
+    this.logIdent = "[%s] ".format(threadName)
 
     setName(threadName)
 

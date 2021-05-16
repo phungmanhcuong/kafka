@@ -18,8 +18,9 @@ package kafka.coordinator.transaction
 
 import java.util.Properties
 import java.util.concurrent.atomic.AtomicBoolean
+
 import kafka.server.{KafkaConfig, MetadataCache, ReplicaManager}
-import kafka.utils.Scheduler
+import kafka.utils.{Logging, Scheduler}
 import kafka.zk.KafkaZkClient
 import org.apache.kafka.common.TopicPartition
 import org.apache.kafka.common.internals.Topic
@@ -28,7 +29,6 @@ import org.apache.kafka.common.protocol.Errors
 import org.apache.kafka.common.record.RecordBatch
 import org.apache.kafka.common.requests.TransactionResult
 import org.apache.kafka.common.utils.{LogContext, ProducerIdAndEpoch, Time}
-import org.apache.kafka.reusable.logging.Logging
 
 object TransactionCoordinator {
 
@@ -88,7 +88,7 @@ class TransactionCoordinator(brokerId: Int,
                              txnMarkerChannelManager: TransactionMarkerChannelManager,
                              time: Time,
                              logContext: LogContext) extends Logging {
-  override def logIdent() = logContext.logPrefix
+  this.logIdent = logContext.logPrefix
 
   import TransactionCoordinator._
 

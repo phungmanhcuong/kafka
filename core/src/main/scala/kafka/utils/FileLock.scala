@@ -16,8 +16,6 @@
  */
  package kafka.utils
 
-import org.apache.kafka.reusable.logging.Logging
-
 import java.io._
 import java.nio.channels._
 import java.nio.file.StandardOpenOption

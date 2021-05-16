@@ -18,6 +18,7 @@ package kafka.controller
 
 import java.net.SocketTimeoutException
 import java.util.concurrent.{BlockingQueue, LinkedBlockingQueue, TimeUnit}
+
 import com.yammer.metrics.core.{Gauge, Timer}
 import kafka.api._
 import kafka.cluster.Broker
@@ -37,7 +38,6 @@ import org.apache.kafka.common.security.JaasContext
 import org.apache.kafka.common.security.auth.SecurityProtocol
 import org.apache.kafka.common.utils.{LogContext, Time}
 import org.apache.kafka.common.{KafkaException, Node, Reconfigurable, TopicPartition}
-import org.apache.kafka.reusable.logging.Logging
 
 import scala.jdk.CollectionConverters._
 import scala.collection.mutable.HashMap
@@ -58,7 +58,7 @@ class ControllerChannelManager(controllerContext: ControllerContext,
 
   protected val brokerStateInfo = new HashMap[Int, ControllerBrokerStateInfo]
   private val brokerLock = new Object
-  override def logIdent() = "[Channel manager on controller " + config.brokerId + "]: "
+  this.logIdent = "[Channel manager on controller " + config.brokerId + "]: "
 
   newGauge("TotalQueueSize",
     () => brokerLock synchronized {
@@ -225,7 +225,7 @@ class RequestSendThread(val controllerId: Int,
                         name: String)
   extends ShutdownableThread(name = name) {
 
-  override def logIdent() = s"[RequestSendThread controllerId=$controllerId] "
+  logIdent = s"[RequestSendThread controllerId=$controllerId] "
 
   private val socketTimeoutMs = config.controllerSocketTimeoutMs
 

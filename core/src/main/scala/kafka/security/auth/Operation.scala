@@ -31,85 +31,63 @@ sealed trait Operation extends BaseEnum {
 case object Read extends Operation {
   val name = "Read"
   val toJava = AclOperation.READ
-
-  override def getName: String = name
 }
 @deprecated("Use org.apache.kafka.common.acl.AclOperation", "Since 2.5")
 case object Write extends Operation {
   val name = "Write"
   val toJava = AclOperation.WRITE
-
-  override def getName: String = name
 }
 @deprecated("Use org.apache.kafka.common.acl.AclOperation", "Since 2.5")
 case object Create extends Operation {
   val name = "Create"
   val toJava = AclOperation.CREATE
-
-  override def getName: String = name
 }
 @deprecated("Use org.apache.kafka.common.acl.AclOperation", "Since 2.5")
 case object Delete extends Operation {
   val name = "Delete"
   val toJava = AclOperation.DELETE
-
-  override def getName: String = name
 }
 @deprecated("Use org.apache.kafka.common.acl.AclOperation", "Since 2.5")
 case object Alter extends Operation {
   val name = "Alter"
   val toJava = AclOperation.ALTER
-
-  override def getName: String = name
 }
 @deprecated("Use org.apache.kafka.common.acl.AclOperation", "Since 2.5")
 case object Describe extends Operation {
   val name = "Describe"
   val toJava = AclOperation.DESCRIBE
-
-  override def getName: String = name
 }
 @deprecated("Use org.apache.kafka.common.acl.AclOperation", "Since 2.5")
 case object ClusterAction extends Operation {
   val name = "ClusterAction"
   val toJava = AclOperation.CLUSTER_ACTION
-
-  override def getName: String = name
 }
 @deprecated("Use org.apache.kafka.common.acl.AclOperation", "Since 2.5")
 case object DescribeConfigs extends Operation {
   val name = "DescribeConfigs"
   val toJava = AclOperation.DESCRIBE_CONFIGS
-
-  override def getName: String = name
 }
 @deprecated("Use org.apache.kafka.common.acl.AclOperation", "Since 2.5")
 case object AlterConfigs extends Operation {
   val name = "AlterConfigs"
   val toJava = AclOperation.ALTER_CONFIGS
-
-  override def getName: String = name
 }
 @deprecated("Use org.apache.kafka.common.acl.AclOperation", "Since 2.5")
 case object IdempotentWrite extends Operation {
   val name = "IdempotentWrite"
   val toJava = AclOperation.IDEMPOTENT_WRITE
-
-  override def getName: String = name
 }
 @deprecated("Use org.apache.kafka.common.acl.AclOperation", "Since 2.5")
 case object All extends Operation {
   val name = "All"
   val toJava = AclOperation.ALL
-
-  override def getName: String = name
 }
 
 @deprecated("Use org.apache.kafka.common.acl.AclOperation", "Since 2.5")
 object Operation {
 
   def fromString(operation: String): Operation = {
-    val op = values.find(op => op.getName.equalsIgnoreCase(operation))
+    val op = values.find(op => op.name.equalsIgnoreCase(operation))
     op.getOrElse(throw new KafkaException(operation + " not a valid operation name. The valid names are " + values.mkString(",")))
   }
 

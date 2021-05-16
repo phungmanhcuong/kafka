@@ -18,7 +18,8 @@
 package kafka.zk
 
 import javax.security.auth.login.Configuration
-import kafka.utils.{CoreUtils, TestUtils}
+
+import kafka.utils.{CoreUtils, Logging, TestUtils}
 import org.junit.{After, AfterClass, Before, BeforeClass}
 import org.junit.Assert._
 import org.apache.kafka.common.security.JaasUtils
@@ -32,7 +33,6 @@ import org.apache.kafka.clients.consumer.internals.AbstractCoordinator
 import kafka.controller.ControllerEventManager
 import org.apache.kafka.clients.admin.AdminClientUnitTestEnv
 import org.apache.kafka.common.utils.Time
-import org.apache.kafka.reusable.logging.Logging
 import org.apache.zookeeper.{WatchedEvent, Watcher, ZooKeeper}
 
 @Category(Array(classOf[IntegrationTest]))

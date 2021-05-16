@@ -20,7 +20,6 @@ package kafka.utils
 import java.util.concurrent._
 import atomic._
 import org.apache.kafka.common.utils.KafkaThread
-import org.apache.kafka.reusable.logging.Logging
 
 /**
  * A scheduler for running jobs

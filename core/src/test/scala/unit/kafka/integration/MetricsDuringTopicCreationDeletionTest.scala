@@ -18,15 +18,15 @@
 package kafka.integration
 
 import java.util.Properties
+
 import kafka.server.KafkaConfig
-import kafka.utils.TestUtils
+import kafka.utils.{Logging, TestUtils}
 
 import scala.jdk.CollectionConverters._
 import org.scalatest.Assertions.fail
 import org.junit.{Before, Test}
 import com.yammer.metrics.core.Gauge
 import kafka.metrics.KafkaYammerMetrics
-import org.apache.kafka.reusable.logging.Logging
 
 class MetricsDuringTopicCreationDeletionTest extends KafkaServerTestHarness with Logging {
 

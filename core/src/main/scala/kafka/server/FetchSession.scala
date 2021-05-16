@@ -20,14 +20,15 @@ package kafka.server
 import java.util
 import java.util.Optional
 import java.util.concurrent.{ThreadLocalRandom, TimeUnit}
+
 import kafka.metrics.KafkaMetricsGroup
+import kafka.utils.Logging
 import org.apache.kafka.common.TopicPartition
 import org.apache.kafka.common.protocol.Errors
 import org.apache.kafka.common.record.Records
 import org.apache.kafka.common.requests.FetchMetadata.{FINAL_EPOCH, INITIAL_EPOCH, INVALID_SESSION_ID}
 import org.apache.kafka.common.requests.{FetchRequest, FetchResponse, FetchMetadata => JFetchMetadata}
 import org.apache.kafka.common.utils.{ImplicitLinkedHashCollection, Time, Utils}
-import org.apache.kafka.reusable.logging.Logging
 
 import scala.math.Ordered.orderingToOrdered
 import scala.collection.{mutable, _}

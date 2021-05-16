@@ -112,7 +112,7 @@ class GroupMetadataManagerTest {
       override def cleanupGroupMetadata(groups: Iterable[GroupMetadata],
                                         selector: GroupMetadata => Map[TopicPartition, OffsetAndMetadata]): Int = expiredOffsets
 
-      def info(msg: => String): Unit = infoCount += 1
+      override def info(msg: => String): Unit = infoCount += 1
     }
 
     // if there are no offsets to expire, we skip to log

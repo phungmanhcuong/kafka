@@ -21,8 +21,6 @@ import java.util.Properties
 import java.util.Collections
 import scala.collection._
 import kafka.message.{CompressionCodec, NoCompressionCodec}
-import org.apache.kafka.reusable.logging.Logging
-
 import scala.jdk.CollectionConverters._
 
 

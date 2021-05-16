@@ -16,8 +16,9 @@ package kafka.api
 import java.time
 import java.util.concurrent._
 import java.util.{Collection, Collections, Properties}
+
 import kafka.server.KafkaConfig
-import kafka.utils.{ShutdownableThread, TestUtils}
+import kafka.utils.{Logging, ShutdownableThread, TestUtils}
 import org.apache.kafka.clients.consumer._
 import org.apache.kafka.clients.producer.{KafkaProducer, ProducerRecord}
 import org.apache.kafka.common.TopicPartition
@@ -25,7 +26,6 @@ import org.apache.kafka.common.errors.GroupMaxSizeReachedException
 import org.apache.kafka.common.message.FindCoordinatorRequestData
 import org.apache.kafka.common.protocol.Errors
 import org.apache.kafka.common.requests.{FindCoordinatorRequest, FindCoordinatorResponse}
-import org.apache.kafka.reusable.logging.Logging
 import org.junit.Assert._
 import org.junit.{After, Ignore, Test}
 

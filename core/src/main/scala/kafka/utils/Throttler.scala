@@ -19,10 +19,10 @@ package kafka.utils
 
 import kafka.metrics.KafkaMetricsGroup
 import org.apache.kafka.common.utils.Time
-import org.apache.kafka.reusable.logging.Logging
 
 import java.util.concurrent.TimeUnit
 import java.util.Random
+
 import scala.math._
 
 /**

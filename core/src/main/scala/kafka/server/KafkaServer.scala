@@ -22,6 +22,7 @@ import java.net.{InetAddress, SocketTimeoutException}
 import java.util
 import java.util.concurrent._
 import java.util.concurrent.atomic.{AtomicBoolean, AtomicInteger}
+
 import kafka.api.{KAFKA_0_9_0, KAFKA_2_2_IV0, KAFKA_2_4_IV1}
 import kafka.cluster.Broker
 import kafka.common.{GenerateBrokerIdException, InconsistentBrokerIdException, InconsistentBrokerMetadataException, InconsistentClusterIdException}
@@ -34,7 +35,7 @@ import kafka.network.SocketServer
 import kafka.security.CredentialProvider
 import kafka.utils._
 import kafka.zk.{BrokerInfo, KafkaZkClient}
-import org.apache.kafka.clients.{ApiVersions, ClientDnsLookup, CommonClientConfigs, ManualMetadataUpdater, NetworkClient, NetworkClientUtils}
+import org.apache.kafka.clients.{ApiVersions, ClientDnsLookup, ManualMetadataUpdater, NetworkClient, NetworkClientUtils, CommonClientConfigs}
 import org.apache.kafka.common.internals.ClusterResourceListeners
 import org.apache.kafka.common.message.ControlledShutdownRequestData
 import org.apache.kafka.common.metrics.{JmxReporter, Metrics, MetricsReporter, _}
@@ -46,7 +47,6 @@ import org.apache.kafka.common.security.token.delegation.internals.DelegationTok
 import org.apache.kafka.common.security.{JaasContext, JaasUtils}
 import org.apache.kafka.common.utils.{AppInfoParser, LogContext, Time}
 import org.apache.kafka.common.{ClusterResource, Endpoint, Node}
-import org.apache.kafka.reusable.logging.Logging
 import org.apache.kafka.server.authorizer.Authorizer
 import org.apache.zookeeper.client.ZKClientConfig
 
@@ -204,14 +204,12 @@ class KafkaServer(val config: KafkaConfig, time: Time = Time.SYSTEM, threadNameP
   newGauge("ClusterId", () => clusterId)
   newGauge("yammer-metrics-count", () =>  KafkaYammerMetrics.defaultRegistry.allMetrics.size)
 
-  val linuxIoMetricsCollector = new LinuxIoMetricsCollector("/proc", time, logger)
+  val linuxIoMetricsCollector = new LinuxIoMetricsCollector("/proc", time, logger.underlying)
 
   if (linuxIoMetricsCollector.usable()) {
     newGauge("linux-disk-read-bytes", () => linuxIoMetricsCollector.readBytes())
     newGauge("linux-disk-write-bytes", () => linuxIoMetricsCollector.writeBytes())
   }
-
-  override def logIdent(): String = s"[KafkaServer id=${config.brokerId}] "
 
   /**
    * Start up API for bringing up a single instance of the Kafka server.
@@ -256,6 +254,7 @@ class KafkaServer(val config: KafkaConfig, time: Time = Time.SYSTEM, threadNameP
         /* generate brokerId */
         config.brokerId = getOrGenerateBrokerId(preloadedBrokerMetadataCheckpoint)
         logContext = new LogContext(s"[KafkaServer id=${config.brokerId}] ")
+        this.logIdent = logContext.logPrefix
 
         // initialize dynamic broker configs from ZooKeeper. Any updates made after this will be
         // applied after DynamicConfigManager starts.

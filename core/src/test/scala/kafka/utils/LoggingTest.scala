@@ -17,10 +17,9 @@
 
 package kafka.utils
 
-import org.apache.kafka.reusable.logging.Logging
-
 import java.lang.management.ManagementFactory
 import javax.management.ObjectName
+
 import org.junit.Test
 import org.junit.Assert.{assertEquals, assertTrue}
 
@@ -49,11 +48,12 @@ class LoggingTest extends Logging {
     class TestLogging(overriddenLogName: String) extends Logging {
       // Expose logger
       def log = logger
+      override def loggerName = overriddenLogName
     }
     val overriddenLogName = "OverriddenLogName"
     val logging = new TestLogging(overriddenLogName)
 
-    assertEquals(overriddenLogName, logging.log.getName)
+    assertEquals(overriddenLogName, logging.log.underlying.getName)
   }
 
   @Test
@@ -64,6 +64,6 @@ class LoggingTest extends Logging {
     }
     val logging = new TestLogging
 
-    assertEquals(logging.getClass.getName, logging.log.getName)
+    assertEquals(logging.getClass.getName, logging.log.underlying.getName)
   }
 }

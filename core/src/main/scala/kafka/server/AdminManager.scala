@@ -18,6 +18,7 @@ package kafka.server
 
 import java.util
 import java.util.{Collections, Properties}
+
 import kafka.admin.{AdminOperationException, AdminUtils}
 import kafka.common.TopicAlreadyMarkedForDeletionException
 import kafka.log.LogConfig
@@ -52,7 +53,6 @@ import org.apache.kafka.common.requests.DescribeConfigsResponse.ConfigSource
 import org.apache.kafka.common.requests.{AlterConfigsRequest, ApiError, DescribeConfigsResponse}
 import org.apache.kafka.common.security.scram.internals.{ScramCredentialUtils, ScramFormatter}
 import org.apache.kafka.common.utils.Sanitizer
-import org.apache.kafka.reusable.logging.Logging
 
 import scala.collection.{Map, mutable, _}
 import scala.jdk.CollectionConverters._
@@ -62,7 +62,7 @@ class AdminManager(val config: KafkaConfig,
                    val metadataCache: MetadataCache,
                    val zkClient: KafkaZkClient) extends Logging with KafkaMetricsGroup {
 
-  override def logIdent() = "[Admin Manager on Broker " + config.brokerId + "]: "
+  this.logIdent = "[Admin Manager on Broker " + config.brokerId + "]: "
 
   private val topicPurgatory = DelayedOperationPurgatory[DelayedOperation]("topic", config.brokerId)
   private val adminZkClient = new AdminZkClient(zkClient)

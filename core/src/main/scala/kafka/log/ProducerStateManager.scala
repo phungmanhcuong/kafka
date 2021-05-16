@@ -20,15 +20,15 @@ import java.io.File
 import java.nio.ByteBuffer
 import java.nio.channels.FileChannel
 import java.nio.file.{Files, StandardOpenOption}
+
 import kafka.log.Log.offsetFromFile
 import kafka.server.LogOffsetMetadata
-import kafka.utils.{nonthreadsafe, threadsafe}
+import kafka.utils.{Logging, nonthreadsafe, threadsafe}
 import org.apache.kafka.common.{KafkaException, TopicPartition}
 import org.apache.kafka.common.errors._
 import org.apache.kafka.common.protocol.types._
 import org.apache.kafka.common.record.{ControlRecordType, DefaultRecordBatch, EndTransactionMarker, RecordBatch}
 import org.apache.kafka.common.utils.{ByteUtils, Crc32C}
-import org.apache.kafka.reusable.logging.Logging
 
 import scala.jdk.CollectionConverters._
 import scala.collection.mutable.ListBuffer
@@ -487,7 +487,7 @@ class ProducerStateManager(val topicPartition: TopicPartition,
   import ProducerStateManager._
   import java.util
 
-  override def logIdent() = s"[ProducerStateManager partition=$topicPartition] "
+  this.logIdent = s"[ProducerStateManager partition=$topicPartition] "
 
   private val producers = mutable.Map.empty[Long, ProducerStateEntry]
   private var lastMapOffset = 0L

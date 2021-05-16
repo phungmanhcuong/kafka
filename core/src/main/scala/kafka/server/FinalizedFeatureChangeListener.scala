@@ -18,11 +18,11 @@
 package kafka.server
 
 import java.util.concurrent.{CountDownLatch, LinkedBlockingQueue, TimeUnit}
-import kafka.utils.ShutdownableThread
+
+import kafka.utils.{Logging, ShutdownableThread}
 import kafka.zk.{FeatureZNode, FeatureZNodeStatus, KafkaZkClient, ZkVersion}
 import kafka.zookeeper.{StateChangeHandler, ZNodeChangeHandler}
 import org.apache.kafka.common.internals.FatalExitError
-import org.apache.kafka.reusable.logging.Logging
 
 import scala.concurrent.TimeoutException
 

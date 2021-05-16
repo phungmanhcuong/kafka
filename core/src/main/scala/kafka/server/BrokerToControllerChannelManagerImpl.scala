@@ -18,7 +18,9 @@
 package kafka.server
 
 import java.util.concurrent.{LinkedBlockingDeque, TimeUnit}
+
 import kafka.common.{InterBrokerSendThread, RequestAndCompletionHandler}
+import kafka.utils.Logging
 import org.apache.kafka.clients._
 import org.apache.kafka.common.requests.AbstractRequest
 import org.apache.kafka.common.utils.{LogContext, Time}
@@ -27,7 +29,6 @@ import org.apache.kafka.common.metrics.Metrics
 import org.apache.kafka.common.network._
 import org.apache.kafka.common.protocol.Errors
 import org.apache.kafka.common.security.JaasContext
-import org.apache.kafka.reusable.logging.Logging
 
 import scala.collection.mutable
 import scala.jdk.CollectionConverters._

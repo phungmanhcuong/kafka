@@ -19,8 +19,8 @@ package kafka.cluster
 
 import kafka.log.Log
 import kafka.server.LogOffsetMetadata
+import kafka.utils.Logging
 import org.apache.kafka.common.TopicPartition
-import org.apache.kafka.reusable.logging.Logging
 
 class Replica(val brokerId: Int, val topicPartition: TopicPartition) extends Logging {
   // the log end offset value, kept in all replicas;

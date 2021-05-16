@@ -20,6 +20,7 @@ import scala.jdk.CollectionConverters._
 import collection._
 import java.util.Properties
 import java.util.concurrent.ExecutionException
+
 import joptsimple.OptionSpecBuilder
 import kafka.common.AdminCommandFailedException
 import kafka.utils._
@@ -34,7 +35,6 @@ import org.apache.kafka.common.errors.TimeoutException
 import org.apache.kafka.common.security.JaasUtils
 import org.apache.kafka.common.utils.Time
 import org.apache.kafka.common.utils.Utils
-import org.apache.kafka.reusable.logging.Logging
 import org.apache.zookeeper.KeeperException.NodeExistsException
 
 object PreferredReplicaLeaderElectionCommand extends Logging {

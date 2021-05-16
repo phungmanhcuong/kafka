@@ -18,9 +18,10 @@
 package kafka.metrics
 
 import java.util.concurrent.TimeUnit
-import com.yammer.metrics.core.{Gauge, Histogram, Meter, MetricName, Timer}
+
+import com.yammer.metrics.core.{Gauge, MetricName, Meter, Histogram, Timer}
+import kafka.utils.Logging
 import org.apache.kafka.common.utils.Sanitizer
-import org.apache.kafka.reusable.logging.Logging
 
 trait KafkaMetricsGroup extends Logging {
 

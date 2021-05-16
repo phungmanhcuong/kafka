@@ -19,11 +19,11 @@ package kafka.common
 import java.nio.charset.StandardCharsets.UTF_8
 import java.util.concurrent.LinkedBlockingQueue
 import java.util.concurrent.atomic.AtomicBoolean
-import kafka.utils.ShutdownableThread
+
+import kafka.utils.{Logging, ShutdownableThread}
 import kafka.zk.{KafkaZkClient, StateChangeHandlers}
 import kafka.zookeeper.{StateChangeHandler, ZNodeChildChangeHandler}
 import org.apache.kafka.common.utils.Time
-import org.apache.kafka.reusable.logging.Logging
 
 import scala.collection.Seq
 import scala.util.{Failure, Try}

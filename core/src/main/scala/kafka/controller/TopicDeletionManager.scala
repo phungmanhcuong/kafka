@@ -17,9 +17,9 @@
 package kafka.controller
 
 import kafka.server.KafkaConfig
+import kafka.utils.Logging
 import kafka.zk.KafkaZkClient
 import org.apache.kafka.common.TopicPartition
-import org.apache.kafka.reusable.logging.Logging
 
 import scala.collection.Set
 import scala.collection.mutable
@@ -89,7 +89,7 @@ class TopicDeletionManager(config: KafkaConfig,
                            replicaStateMachine: ReplicaStateMachine,
                            partitionStateMachine: PartitionStateMachine,
                            client: DeletionClient) extends Logging {
-  override def logIdent() = s"[Topic Deletion Manager ${config.brokerId}] "
+  this.logIdent = s"[Topic Deletion Manager ${config.brokerId}] "
   val isDeleteTopicEnabled: Boolean = config.deleteTopicEnable
 
   def init(initialTopicsToBeDeleted: Set[String], initialTopicsIneligibleForDeletion: Set[String]): Unit = {

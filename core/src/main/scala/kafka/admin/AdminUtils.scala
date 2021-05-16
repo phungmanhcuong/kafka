@@ -18,8 +18,9 @@
 package kafka.admin
 
 import java.util.Random
+
+import kafka.utils.Logging
 import org.apache.kafka.common.errors.{InvalidPartitionsException, InvalidReplicationFactorException}
-import org.apache.kafka.reusable.logging.Logging
 
 import collection.{Map, mutable, _}
 

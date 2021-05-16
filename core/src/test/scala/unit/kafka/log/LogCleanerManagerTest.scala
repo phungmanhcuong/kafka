@@ -19,12 +19,12 @@ package kafka.log
 
 import java.io.File
 import java.util.Properties
+
 import kafka.server.{BrokerTopicStats, LogDirFailureChannel}
 import kafka.utils._
 import org.apache.kafka.common.TopicPartition
 import org.apache.kafka.common.record._
 import org.apache.kafka.common.utils.Utils
-import org.apache.kafka.reusable.logging.Logging
 import org.junit.Assert._
 import org.junit.{After, Test}
 import org.scalatest.Assertions.intercept

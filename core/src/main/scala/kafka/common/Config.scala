@@ -18,8 +18,8 @@
 package kafka.common
 
 import util.matching.Regex
+import kafka.utils.Logging
 import org.apache.kafka.common.errors.InvalidConfigurationException
-import org.apache.kafka.reusable.logging.Logging
 
 trait Config extends Logging {
 

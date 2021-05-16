@@ -21,7 +21,6 @@ import kafka.api.LeaderAndIsr
 import kafka.controller.LeaderIsrAndControllerEpoch
 import kafka.zk._
 import org.apache.kafka.common.TopicPartition
-import org.apache.kafka.reusable.logging.Logging
 
 object ReplicationUtils extends Logging {
 

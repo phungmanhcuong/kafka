@@ -18,11 +18,13 @@ package kafka.security.authorizer
 
 import java.{lang, util}
 import java.util.concurrent.{CompletableFuture, CompletionStage}
+
 import com.typesafe.scalalogging.Logger
 import kafka.api.KAFKA_2_0_IV1
 import kafka.security.authorizer.AclAuthorizer.{AclSeqs, ResourceOrdering, VersionedAcls}
 import kafka.security.authorizer.AclEntry.ResourceSeparator
 import kafka.server.{KafkaConfig, KafkaServer}
+import kafka.utils._
 import kafka.utils.Implicits._
 import kafka.zk._
 import org.apache.kafka.common.Endpoint
@@ -34,7 +36,6 @@ import org.apache.kafka.common.protocol.ApiKeys
 import org.apache.kafka.common.resource._
 import org.apache.kafka.common.security.auth.KafkaPrincipal
 import org.apache.kafka.common.utils.{SecurityUtils, Time}
-import org.apache.kafka.reusable.logging.Logging
 import org.apache.kafka.server.authorizer.AclDeleteResult.AclBindingDeleteResult
 import org.apache.kafka.server.authorizer._
 import org.apache.zookeeper.client.ZKClientConfig

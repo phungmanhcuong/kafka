@@ -18,14 +18,15 @@
 package kafka.tools
 
 import java.io._
+
 import kafka.coordinator.group.GroupMetadataManager
 import kafka.coordinator.transaction.TransactionLog
 import kafka.log._
+import kafka.serializer.Decoder
 import kafka.utils._
 import kafka.utils.Implicits._
 import org.apache.kafka.common.record._
 import org.apache.kafka.common.utils.Utils
-import org.apache.kafka.reusable.serializer.Decoder
 
 import scala.jdk.CollectionConverters._
 import scala.collection.mutable
@@ -213,17 +214,17 @@ object DumpLogSegments {
     def parse(record: Record): (Option[K], Option[V])
   }
 
-  private class DecoderMessageParser[K, V](keyDecoder: Decoder[Array[Byte], K], valueDecoder: Decoder[Array[Byte], V]) extends MessageParser[K, V] {
+  private class DecoderMessageParser[K, V](keyDecoder: Decoder[K], valueDecoder: Decoder[V]) extends MessageParser[K, V] {
     override def parse(record: Record): (Option[K], Option[V]) = {
       val key = if (record.hasKey)
-        Some(keyDecoder.decode(Utils.readBytes(record.key)))
+        Some(keyDecoder.fromBytes(Utils.readBytes(record.key)))
       else
         None
 
       if (!record.hasValue) {
         (key, None)
       } else {
-        val payload = Some(valueDecoder.decode(Utils.readBytes(record.value)))
+        val payload = Some(valueDecoder.fromBytes(Utils.readBytes(record.value)))
 
         (key, payload)
       }
@@ -387,11 +388,11 @@ object DumpLogSegments {
       .ofType(classOf[java.lang.Integer])
       .defaultsTo(5 * 1024 * 1024)
     val deepIterationOpt = parser.accepts("deep-iteration", "if set, uses deep instead of shallow iteration. Automatically set if print-data-log is enabled.")
-    val valueDecoderOpt = parser.accepts("value-decoder-class", "if set, used to deserialize the messages. This class should implement org.apache.kafka.reusable.serializer.Decoder trait. Custom jar should be available in kafka/libs directory.")
+    val valueDecoderOpt = parser.accepts("value-decoder-class", "if set, used to deserialize the messages. This class should implement kafka.serializer.Decoder trait. Custom jar should be available in kafka/libs directory.")
       .withOptionalArg()
       .ofType(classOf[java.lang.String])
       .defaultsTo("kafka.serializer.StringDecoder")
-    val keyDecoderOpt = parser.accepts("key-decoder-class", "if set, used to deserialize the keys. This class should implement org.apache.kafka.reusable.serializer.Decoder trait. Custom jar should be available in kafka/libs directory.")
+    val keyDecoderOpt = parser.accepts("key-decoder-class", "if set, used to deserialize the keys. This class should implement kafka.serializer.Decoder trait. Custom jar should be available in kafka/libs directory.")
       .withOptionalArg()
       .ofType(classOf[java.lang.String])
       .defaultsTo("kafka.serializer.StringDecoder")
@@ -407,8 +408,8 @@ object DumpLogSegments {
       } else if (options.has(transactionLogOpt)) {
         new TransactionLogMessageParser
       } else {
-        val valueDecoder: Decoder[Array[Byte], _] = CoreUtils.createObject[Decoder[Array[Byte], _]](options.valueOf(valueDecoderOpt), new VerifiableProperties)
-        val keyDecoder: Decoder[Array[Byte], _] = CoreUtils.createObject[Decoder[Array[Byte], _]](options.valueOf(keyDecoderOpt), new VerifiableProperties)
+        val valueDecoder: Decoder[_] = CoreUtils.createObject[Decoder[_]](options.valueOf(valueDecoderOpt), new VerifiableProperties)
+        val keyDecoder: Decoder[_] = CoreUtils.createObject[Decoder[_]](options.valueOf(keyDecoderOpt), new VerifiableProperties)
         new DecoderMessageParser(keyDecoder, valueDecoder)
       }
 

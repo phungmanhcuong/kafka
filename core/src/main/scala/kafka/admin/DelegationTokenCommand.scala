@@ -20,14 +20,14 @@ package kafka.admin
 import java.text.SimpleDateFormat
 import java.util
 import java.util.Base64
+
 import joptsimple.ArgumentAcceptingOptionSpec
-import kafka.utils.{CommandDefaultOptions, CommandLineUtils, Exit}
+import kafka.utils.{CommandDefaultOptions, CommandLineUtils, Exit, Logging}
 import org.apache.kafka.clients.CommonClientConfigs
 import org.apache.kafka.clients.admin.{Admin, CreateDelegationTokenOptions, DescribeDelegationTokenOptions, ExpireDelegationTokenOptions, RenewDelegationTokenOptions}
 import org.apache.kafka.common.security.auth.KafkaPrincipal
 import org.apache.kafka.common.security.token.delegation.DelegationToken
 import org.apache.kafka.common.utils.{SecurityUtils, Utils}
-import org.apache.kafka.reusable.logging.Logging
 
 import scala.jdk.CollectionConverters._
 import scala.collection.Set

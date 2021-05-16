@@ -28,22 +28,18 @@ sealed trait PermissionType extends BaseEnum {
 case object Allow extends PermissionType {
   val name = "Allow"
   val toJava = AclPermissionType.ALLOW
-
-  override def getName: String = name
 }
 
 @deprecated("Use org.apache.kafka.common.acl.AclPermissionType", "Since 2.5")
 case object Deny extends PermissionType {
   val name = "Deny"
   val toJava = AclPermissionType.DENY
-
-  override def getName: String = name
 }
 
 @deprecated("Use org.apache.kafka.common.acl.AclPermissionType", "Since 2.5")
 object PermissionType {
   def fromString(permissionType: String): PermissionType = {
-    val pType = values.find(pType => pType.getName.equalsIgnoreCase(permissionType))
+    val pType = values.find(pType => pType.name.equalsIgnoreCase(permissionType))
     pType.getOrElse(throw new KafkaException(permissionType + " not a valid permissionType name. The valid names are " + values.mkString(",")))
   }
 

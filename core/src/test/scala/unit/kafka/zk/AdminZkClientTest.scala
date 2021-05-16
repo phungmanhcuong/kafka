@@ -18,6 +18,7 @@ package kafka.admin
 
 import java.util
 import java.util.Properties
+
 import kafka.controller.ReplicaAssignment
 import kafka.log._
 import kafka.server.DynamicConfig.Broker._
@@ -25,13 +26,12 @@ import kafka.server.KafkaConfig._
 import kafka.server.{ConfigType, KafkaConfig, KafkaServer}
 import kafka.utils.CoreUtils._
 import kafka.utils.TestUtils._
-import kafka.utils.TestUtils
+import kafka.utils.{Logging, TestUtils}
 import kafka.zk.{AdminZkClient, KafkaZkClient, ZooKeeperTestHarness}
 import org.apache.kafka.common.TopicPartition
 import org.apache.kafka.common.config.TopicConfig
 import org.apache.kafka.common.errors.{InvalidReplicaAssignmentException, InvalidTopicException, TopicExistsException}
 import org.apache.kafka.common.metrics.Quota
-import org.apache.kafka.reusable.logging.Logging
 import org.apache.kafka.test.{TestUtils => JTestUtils}
 import org.easymock.EasyMock
 import org.junit.Assert._

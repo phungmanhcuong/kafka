@@ -17,8 +17,8 @@
  package kafka.utils
 
 import java.util.Properties
+
 import joptsimple.{OptionParser, OptionSet, OptionSpec}
-import org.apache.kafka.reusable.logging.Logging
 
 import scala.collection.Set
 

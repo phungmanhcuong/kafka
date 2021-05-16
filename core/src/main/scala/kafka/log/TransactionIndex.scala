@@ -20,11 +20,11 @@ import java.io.{File, IOException}
 import java.nio.ByteBuffer
 import java.nio.channels.FileChannel
 import java.nio.file.{Files, StandardOpenOption}
-import kafka.utils.nonthreadsafe
+
+import kafka.utils.{Logging, nonthreadsafe}
 import org.apache.kafka.common.KafkaException
 import org.apache.kafka.common.requests.FetchResponse.AbortedTransaction
 import org.apache.kafka.common.utils.Utils
-import org.apache.kafka.reusable.logging.Logging
 
 import scala.collection.mutable.ListBuffer
 

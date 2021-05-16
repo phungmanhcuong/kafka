@@ -18,11 +18,12 @@
 package kafka.server
 
 import java.util.concurrent.{Delayed, TimeUnit}
+
 import kafka.network
 import kafka.network.RequestChannel
 import kafka.network.RequestChannel.Response
+import kafka.utils.Logging
 import org.apache.kafka.common.utils.Time
-import org.apache.kafka.reusable.logging.Logging
 
 
 /**

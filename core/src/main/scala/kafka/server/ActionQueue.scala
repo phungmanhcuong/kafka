@@ -17,9 +17,9 @@
 
 package kafka.server
 
-import org.apache.kafka.reusable.logging.Logging
-
 import java.util.concurrent.ConcurrentLinkedQueue
+
+import kafka.utils.Logging
 
 /**
  * This queue is used to collect actions which need to be executed later. One use case is that ReplicaManager#appendRecords

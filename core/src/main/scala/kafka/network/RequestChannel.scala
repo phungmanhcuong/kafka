@@ -20,12 +20,13 @@ package kafka.network
 import java.net.InetAddress
 import java.nio.ByteBuffer
 import java.util.concurrent._
+
 import com.typesafe.scalalogging.Logger
 import com.yammer.metrics.core.Meter
 import kafka.log.LogConfig
 import kafka.metrics.KafkaMetricsGroup
 import kafka.server.KafkaConfig
-import kafka.utils.{NotNothing, Pool}
+import kafka.utils.{Logging, NotNothing, Pool}
 import kafka.utils.Implicits._
 import org.apache.kafka.common.config.types.Password
 import org.apache.kafka.common.config.ConfigResource
@@ -37,7 +38,6 @@ import org.apache.kafka.common.protocol.{ApiKeys, Errors}
 import org.apache.kafka.common.requests._
 import org.apache.kafka.common.security.auth.KafkaPrincipal
 import org.apache.kafka.common.utils.{Sanitizer, Time}
-import org.apache.kafka.reusable.logging.Logging
 
 import scala.annotation.nowarn
 import scala.collection.mutable

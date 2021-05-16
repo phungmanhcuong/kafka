@@ -26,6 +26,7 @@ import java.util.Optional
 import java.util.concurrent.atomic._
 import java.util.concurrent.{ConcurrentNavigableMap, ConcurrentSkipListMap, TimeUnit}
 import java.util.regex.Pattern
+
 import kafka.api.{ApiVersion, KAFKA_0_10_0_IV0}
 import kafka.common.{LogSegmentOffsetOverflowException, LongRef, OffsetsOutOfOrderException, UnexpectedAppendOffsetException}
 import kafka.message.{BrokerCompressionCodec, CompressionCodec, NoCompressionCodec}
@@ -43,7 +44,6 @@ import org.apache.kafka.common.requests.ProduceResponse.RecordError
 import org.apache.kafka.common.requests.{EpochEndOffset, ListOffsetRequest}
 import org.apache.kafka.common.utils.{Time, Utils}
 import org.apache.kafka.common.{InvalidRecordException, KafkaException, TopicPartition}
-import org.apache.kafka.reusable.logging.Logging
 
 import scala.jdk.CollectionConverters._
 import scala.collection.mutable.{ArrayBuffer, ListBuffer}
@@ -248,7 +248,7 @@ class Log(@volatile private var _dir: File,
 
   import kafka.log.Log._
 
-  override def logIdent() = s"[Log partition=$topicPartition, dir=${dir.getParent}] "
+  this.logIdent = s"[Log partition=$topicPartition, dir=${dir.getParent}] "
 
   /* A lock that guards all modifications to the log */
   private val lock = new Object
@@ -2449,7 +2449,7 @@ class Log(@volatile private var _dir: File,
       while (position < sourceRecords.sizeInBytes) {
         val firstBatch = sourceRecords.batchesFrom(position).asScala.head
         val newSegment = LogCleaner.createNewCleanedSegment(this, firstBatch.baseOffset)
-        newSegments.addOne(newSegment)
+        newSegments += newSegment
 
         val bytesAppended = newSegment.appendFromFile(sourceRecords, position)
         if (bytesAppended == 0)
@@ -2476,13 +2476,6 @@ class Log(@volatile private var _dir: File,
       replaceSegments(newSegments.toList, List(segment))
       newSegments.toList
     } catch {
-      case e: NullPointerException => throw e
-      case e: RuntimeException =>
-        newSegments.foreach { splitSegment =>
-          splitSegment.close()
-          splitSegment.deleteIfExists()
-        }
-        throw e
       case e: Exception =>
         newSegments.foreach { splitSegment =>
           splitSegment.close()

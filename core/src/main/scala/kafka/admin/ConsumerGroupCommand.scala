@@ -19,6 +19,7 @@ package kafka.admin
 
 import java.time.{Duration, Instant}
 import java.util.Properties
+
 import com.fasterxml.jackson.dataformat.csv.CsvMapper
 import com.fasterxml.jackson.module.scala.DefaultScalaModule
 import com.fasterxml.jackson.module.scala.experimental.ScalaObjectMapper
@@ -42,7 +43,6 @@ import scala.reflect.ClassTag
 import org.apache.kafka.common.requests.ListOffsetResponse
 import org.apache.kafka.common.ConsumerGroupState
 import joptsimple.OptionException
-import org.apache.kafka.reusable.logging.Logging
 
 import scala.annotation.nowarn
 

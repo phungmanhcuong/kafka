@@ -18,8 +18,9 @@
 package kafka.security.auth
 
 import java.nio.charset.StandardCharsets
+
 import kafka.admin.ZkSecurityMigrator
-import kafka.utils.TestUtils
+import kafka.utils.{Logging, TestUtils}
 import kafka.zk._
 import org.apache.kafka.common.{KafkaException, TopicPartition}
 import org.apache.kafka.common.security.JaasUtils
@@ -35,7 +36,6 @@ import kafka.controller.ReplicaAssignment
 import org.apache.kafka.common.network.ListenerName
 import org.apache.kafka.common.security.auth.SecurityProtocol
 import org.apache.kafka.common.utils.Time
-import org.apache.kafka.reusable.logging.Logging
 
 import scala.jdk.CollectionConverters._
 import scala.collection.Seq

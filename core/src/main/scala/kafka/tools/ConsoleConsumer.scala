@@ -23,6 +23,7 @@ import java.time.Duration
 import java.util.concurrent.CountDownLatch
 import java.util.regex.Pattern
 import java.util.{Collections, Locale, Map, Properties, Random}
+
 import com.typesafe.scalalogging.LazyLogging
 import joptsimple._
 import kafka.utils.Implicits._
@@ -34,7 +35,6 @@ import org.apache.kafka.common.record.TimestampType
 import org.apache.kafka.common.requests.ListOffsetRequest
 import org.apache.kafka.common.serialization.{ByteArrayDeserializer, Deserializer}
 import org.apache.kafka.common.utils.Utils
-import org.apache.kafka.reusable.logging.Logging
 
 import scala.annotation.nowarn
 import scala.jdk.CollectionConverters._

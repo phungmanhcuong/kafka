@@ -21,12 +21,12 @@ import java.util.Locale
 import java.util.concurrent.locks.{ReentrantLock, ReentrantReadWriteLock}
 import java.util.concurrent._
 import java.util.{List => JList}
+
 import com.yammer.metrics.core.MetricName
 import kafka.metrics.KafkaMetricsGroup
 import kafka.utils.CoreUtils.{inLock, inReadLock, inWriteLock}
-import kafka.utils.KafkaScheduler
+import kafka.utils.{KafkaScheduler, Logging}
 import org.apache.kafka.common.utils.Time
-import org.apache.kafka.reusable.logging.Logging
 import org.apache.zookeeper.AsyncCallback.{Children2Callback, DataCallback, StatCallback}
 import org.apache.zookeeper.KeeperException.Code
 import org.apache.zookeeper.Watcher.Event.{EventType, KeeperState}
@@ -70,7 +70,7 @@ class ZooKeeperClient(connectString: String,
       None)
   }
 
-  override def logIdent() = name match {
+  this.logIdent = name match {
     case Some(n) => s"[ZooKeeperClient $n] "
     case _ => "[ZooKeeperClient] "
   }

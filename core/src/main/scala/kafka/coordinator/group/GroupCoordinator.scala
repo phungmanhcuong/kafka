@@ -18,10 +18,12 @@ package kafka.coordinator.group
 
 import java.util.Properties
 import java.util.concurrent.atomic.AtomicBoolean
+
 import kafka.common.OffsetAndMetadata
 import kafka.log.LogConfig
 import kafka.message.ProducerCompressionCodec
 import kafka.server._
+import kafka.utils.Logging
 import kafka.zk.KafkaZkClient
 import org.apache.kafka.common.TopicPartition
 import org.apache.kafka.common.internals.Topic
@@ -32,7 +34,6 @@ import org.apache.kafka.common.metrics.stats.Meter
 import org.apache.kafka.common.protocol.{ApiKeys, Errors}
 import org.apache.kafka.common.requests._
 import org.apache.kafka.common.utils.Time
-import org.apache.kafka.reusable.logging.Logging
 
 import scala.collection.{Map, Seq, Set, immutable, mutable}
 import scala.math.max
@@ -83,7 +84,7 @@ class GroupCoordinator(val brokerId: Int,
       "group-coordinator-metrics",
       "The total number of completed rebalance")))
 
-  override def logIdent() = "[GroupCoordinator " + brokerId + "]: "
+  this.logIdent = "[GroupCoordinator " + brokerId + "]: "
 
   private val isActive = new AtomicBoolean(false)
 

@@ -20,7 +20,6 @@ package kafka.log
 import kafka.utils._
 import org.apache.kafka.common.TopicPartition
 import org.apache.kafka.common.record.CompressionType
-import org.apache.kafka.reusable.logging.Logging
 import org.junit.Assert._
 import org.junit._
 import org.junit.runner.RunWith
