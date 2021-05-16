@@ -17,12 +17,11 @@
 
 package org.apache.kafka.jmh.server;
 
-import kafka.zk.BrokerInfo;
 import kafka.zk.KafkaZkClient;
 import kafka.zookeeper.ZooKeeperClient;
 import org.apache.kafka.common.utils.Time;
-import scala.Int;
-import scala.Tuple2;
+
+import java.util.Properties;
 
 public class JmhKafkaZkClient extends KafkaZkClient {
     public JmhKafkaZkClient(ZooKeeperClient zooKeeperClient, boolean isSecure, Time time) {
@@ -30,17 +29,7 @@ public class JmhKafkaZkClient extends KafkaZkClient {
     }
 
     @Override
-    public Tuple2<Object, Object> registerControllerAndIncrementControllerEpoch(Int id) {
-        return null;
-    }
-
-    @Override
-    public long registerBroker(BrokerInfo brokerInfo) {
-        return super.registerBroker(brokerInfo);
-    }
-
-    @Override
-    public void updateBrokerInfo(BrokerInfo brokerInfo) {
-        super.updateBrokerInfo(brokerInfo);
+    public Properties getEntityConfigs(String rootEntityType, String sanitizedEntityName) {
+        return new Properties();
     }
 }
