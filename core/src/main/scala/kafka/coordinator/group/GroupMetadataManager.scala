@@ -17,13 +17,6 @@
 
 package kafka.coordinator.group
 
-import java.io.PrintStream
-import java.nio.ByteBuffer
-import java.nio.charset.StandardCharsets
-import java.util.Optional
-import java.util.concurrent.TimeUnit
-import java.util.concurrent.atomic.AtomicBoolean
-import java.util.concurrent.locks.ReentrantLock
 import com.yammer.metrics.core.Gauge
 import kafka.api.{ApiVersion, KAFKA_0_10_1_IV0, KAFKA_2_1_IV0, KAFKA_2_1_IV1, KAFKA_2_3_IV0}
 import kafka.common.OffsetAndMetadata
@@ -31,8 +24,8 @@ import kafka.log.AppendOrigin
 import kafka.metrics.KafkaMetricsGroup
 import kafka.server.{FetchLogEnd, ReplicaManager}
 import kafka.utils.CoreUtils.inLock
-import kafka.utils._
 import kafka.utils.Implicits._
+import kafka.utils._
 import kafka.zk.KafkaZkClient
 import org.apache.kafka.clients.consumer.ConsumerRecord
 import org.apache.kafka.clients.consumer.internals.ConsumerProtocol
@@ -48,8 +41,15 @@ import org.apache.kafka.common.requests.ProduceResponse.PartitionResponse
 import org.apache.kafka.common.requests.{OffsetCommitRequest, OffsetFetchResponse}
 import org.apache.kafka.common.utils.{Time, Utils}
 import org.apache.kafka.common.{KafkaException, MessageFormatter, TopicPartition}
-import org.apache.kafka.reusable.startable.{Server, Shutdownable}
+import org.apache.kafka.reusable.startable.Shutdownable
 
+import java.io.PrintStream
+import java.nio.ByteBuffer
+import java.nio.charset.StandardCharsets
+import java.util.Optional
+import java.util.concurrent.TimeUnit
+import java.util.concurrent.atomic.AtomicBoolean
+import java.util.concurrent.locks.ReentrantLock
 import scala.collection._
 import scala.collection.mutable.ArrayBuffer
 import scala.jdk.CollectionConverters._

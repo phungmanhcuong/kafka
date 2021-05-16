@@ -33,7 +33,7 @@ import org.apache.kafka.common.metrics.stats.Meter
 import org.apache.kafka.common.protocol.{ApiKeys, Errors}
 import org.apache.kafka.common.requests._
 import org.apache.kafka.common.utils.Time
-import org.apache.kafka.reusable.startable.{Server, Shutdownable}
+import org.apache.kafka.reusable.startable.{Shutdownable}
 
 import scala.collection.{Map, Seq, Set, immutable, mutable}
 import scala.math.max
