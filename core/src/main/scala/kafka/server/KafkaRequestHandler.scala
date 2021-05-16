@@ -27,6 +27,7 @@ import com.yammer.metrics.core.Meter
 import org.apache.kafka.common.internals.FatalExitError
 import org.apache.kafka.common.utils.{KafkaThread, Time}
 import org.apache.kafka.reusable.inout.HandlerPool
+import org.apache.kafka.reusable.startable.Shutdownable
 
 import scala.collection.mutable
 import scala.jdk.CollectionConverters._
@@ -105,7 +106,7 @@ class KafkaRequestHandlerPool(val brokerId: Int,
                               numThreads: Int,
                               requestHandlerAvgIdleMetricName: String,
                               logAndThreadNamePrefix : String)
-    extends Logging with KafkaMetricsGroup with HandlerPool[Int, Unit] {
+    extends Logging with KafkaMetricsGroup with HandlerPool[Int, Unit] with Shutdownable[Unit] {
 
   private val threadPoolSize: AtomicInteger = new AtomicInteger(numThreads)
   /* a meter to track the average free capacity of the request handlers */
