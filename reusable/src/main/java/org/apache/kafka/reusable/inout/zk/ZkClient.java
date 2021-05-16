@@ -20,10 +20,13 @@ package org.apache.kafka.reusable.inout.zk;
 import org.apache.kafka.reusable.KafkaBase;
 import scala.Int;
 
+import java.util.List;
+
 public interface ZkClient<RegisterControllerOutput, BrokerInfo extends KafkaBase, Assignment> {
     long registerBroker(BrokerInfo brokerInfo);
     RegisterControllerOutput registerControllerAndIncrementControllerEpoch(Int id);
     void updateBrokerInfo(BrokerInfo brokerInfo);
     boolean topicExists(String topicName);
     void createTopicAssignment(String topic, Assignment assignment);
+    List<String> getAllLogDirEventNotifications();
 }
