@@ -19,7 +19,6 @@ package org.apache.kafka.reusable.startable;
 
 public interface Server<T> {
     T startup();
-    T createBrokerInfo();
     T shutdown();
     T awaitShutdown();
     T getLogManager();
