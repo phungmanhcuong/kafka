@@ -48,7 +48,7 @@ import org.apache.kafka.common.requests.ProduceResponse.PartitionResponse
 import org.apache.kafka.common.requests.{OffsetCommitRequest, OffsetFetchResponse}
 import org.apache.kafka.common.utils.{Time, Utils}
 import org.apache.kafka.common.{KafkaException, MessageFormatter, TopicPartition}
-import org.apache.kafka.reusable.startable.Server
+import org.apache.kafka.reusable.startable.{Server, Shutdownable}
 
 import scala.collection._
 import scala.collection.mutable.ArrayBuffer
@@ -60,7 +60,7 @@ class GroupMetadataManager(brokerId: Int,
                            val replicaManager: ReplicaManager,
                            zkClient: KafkaZkClient,
                            time: Time,
-                           metrics: Metrics) extends Logging with KafkaMetricsGroup with Server[Unit] {
+                           metrics: Metrics) extends Logging with KafkaMetricsGroup with Shutdownable[Unit] {
 
   private val compressionType: CompressionType = CompressionType.forId(config.offsetsTopicCompressionCodec.codec)
 
