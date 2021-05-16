@@ -1715,6 +1715,7 @@ project(':jmh-benchmarks') {
   }
 
   dependencies {
+    compile project(':reusable')
     compile project(':core')
     compile project(':clients')
     compile project(':streams')

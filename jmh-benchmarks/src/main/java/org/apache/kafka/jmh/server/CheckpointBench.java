@@ -33,7 +33,6 @@ import kafka.utils.KafkaScheduler;
 import kafka.utils.MockTime;
 import kafka.utils.Scheduler;
 import kafka.utils.TestUtils;
-import kafka.zk.BrokerInfo;
 import kafka.zk.KafkaZkClient;
 import org.apache.kafka.common.TopicPartition;
 import org.apache.kafka.common.metrics.Metrics;
@@ -123,11 +122,6 @@ public class CheckpointBench {
             @Override
             public Properties getEntityConfigs(String rootEntityType, String sanitizedEntityName) {
                 return new Properties();
-            }
-
-            @Override
-            public long registerBroker(BrokerInfo brokerInfo) {
-                return super.registerBroker(brokerInfo);
             }
         };
         this.alterIsrManager = TestUtils.createAlterIsrManager();
