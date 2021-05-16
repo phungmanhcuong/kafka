@@ -38,4 +38,9 @@ public class JmhKafkaZkClient extends KafkaZkClient {
     public long registerBroker(BrokerInfo brokerInfo) {
         return super.registerBroker(brokerInfo);
     }
+
+    @Override
+    public void updateBrokerInfo(BrokerInfo brokerInfo) {
+        super.updateBrokerInfo(brokerInfo);
+    }
 }

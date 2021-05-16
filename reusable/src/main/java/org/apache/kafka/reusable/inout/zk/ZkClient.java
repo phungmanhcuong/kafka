@@ -20,8 +20,8 @@ package org.apache.kafka.reusable.inout.zk;
 import org.apache.kafka.reusable.KafkaBase;
 import scala.Int;
 
-public interface ZkClient<RegisterControllerOutput, BrokerInfo extends KafkaBase, Unit> {
+public interface ZkClient<RegisterControllerOutput, BrokerInfo extends KafkaBase> {
     long registerBroker(BrokerInfo brokerInfo);
     RegisterControllerOutput registerControllerAndIncrementControllerEpoch(Int id);
-    Unit updateBrokerInfo(BrokerInfo brokerInfo);
+    void updateBrokerInfo(BrokerInfo brokerInfo);
 }

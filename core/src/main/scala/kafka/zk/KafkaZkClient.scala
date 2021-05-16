@@ -51,7 +51,7 @@ import scala.collection.{Map, Seq, mutable}
  * monolithic [[kafka.zk.ZkData]] is the way to go.
  */
 class KafkaZkClient private[zk] (zooKeeperClient: ZooKeeperClient, isSecure: Boolean, time: Time)
-    extends AutoCloseable with Logging with KafkaMetricsGroup with ZkClient[(Int, Int), BrokerInfo, Unit] {
+    extends AutoCloseable with Logging with KafkaMetricsGroup with ZkClient[(Int, Int), BrokerInfo] {
 
   override def metricName(name: String, metricTags: scala.collection.Map[String, String]): MetricName = {
     explicitMetricName("kafka.server", "ZooKeeperClientMetrics", name, metricTags)
