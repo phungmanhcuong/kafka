@@ -41,6 +41,7 @@ import org.apache.zookeeper.data.{ACL, Stat}
 import org.apache.zookeeper.{CreateMode, KeeperException, ZooKeeper}
 
 import scala.collection.{Map, Seq, mutable}
+import scala.runtime.RichLong
 
 /**
  * Provides higher level Kafka-specific operations on top of the pipelined [[kafka.zookeeper.ZooKeeperClient]].
@@ -51,7 +52,7 @@ import scala.collection.{Map, Seq, mutable}
  * monolithic [[kafka.zk.ZkData]] is the way to go.
  */
 class KafkaZkClient private[zk] (zooKeeperClient: ZooKeeperClient, isSecure: Boolean, time: Time)
-    extends AutoCloseable with Logging with KafkaMetricsGroup with ZkClient[(Int, Int), BrokerInfo, Long] {
+    extends AutoCloseable with Logging with KafkaMetricsGroup with ZkClient[(Int, Int), BrokerInfo, RichLong] {
 
   override def metricName(name: String, metricTags: scala.collection.Map[String, String]): MetricName = {
     explicitMetricName("kafka.server", "ZooKeeperClientMetrics", name, metricTags)
@@ -90,7 +91,7 @@ class KafkaZkClient private[zk] (zooKeeperClient: ZooKeeperClient, isSecure: Boo
     * @param brokerInfo payload of the broker znode
     * @return broker epoch (znode create transaction id)
     */
-  override def registerBroker(brokerInfo: BrokerInfo): Long = {
+  def registerBroker(brokerInfo: BrokerInfo): Long = {
     val path = brokerInfo.path
     val stat = checkedEphemeralCreate(path, brokerInfo.toJsonBytes)
     info(s"Registered broker ${brokerInfo.broker.id} at path $path with addresses: " +

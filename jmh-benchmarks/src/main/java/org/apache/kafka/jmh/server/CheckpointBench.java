@@ -16,7 +16,6 @@
  */
 package org.apache.kafka.jmh.server;
 
-import java.util.Properties;
 import kafka.cluster.Partition;
 import kafka.cluster.PartitionStateStore;
 import kafka.log.CleanerConfig;
@@ -52,16 +51,16 @@ import org.openjdk.jmh.annotations.State;
 import org.openjdk.jmh.annotations.TearDown;
 import org.openjdk.jmh.annotations.Threads;
 import org.openjdk.jmh.annotations.Warmup;
+import scala.Option;
+import scala.collection.JavaConverters;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
-
-import scala.collection.JavaConverters;
-import scala.Option;
 
 @Warmup(iterations = 5)
 @Measurement(iterations = 5)
