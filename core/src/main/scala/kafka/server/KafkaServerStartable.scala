@@ -17,11 +17,11 @@
 
 package kafka.server
 
-import java.util.Properties
-
 import kafka.metrics.KafkaMetricsReporter
 import kafka.utils.{Exit, Logging, VerifiableProperties}
+import org.apache.kafka.reusable.startable.Server
 
+import java.util.Properties
 import scala.collection.Seq
 
 object KafkaServerStartable {
@@ -35,7 +35,8 @@ object KafkaServerStartable {
   }
 }
 
-class KafkaServerStartable(val staticServerConfig: KafkaConfig, reporters: Seq[KafkaMetricsReporter], threadNamePrefix: Option[String] = None) extends Logging {
+class KafkaServerStartable(val staticServerConfig: KafkaConfig, reporters: Seq[KafkaMetricsReporter], threadNamePrefix: Option[String] = None)
+  extends Logging with Server[Unit, Byte] {
   private val server = new KafkaServer(staticServerConfig, kafkaMetricsReporters = reporters, threadNamePrefix = threadNamePrefix)
 
   def this(serverConfig: KafkaConfig) = this(serverConfig, Seq.empty)
