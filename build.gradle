@@ -731,13 +731,6 @@ project(':reusable') {
   println "Building project 'reusable' with Scala version ${versions.scala}"
   apply plugin: 'scala'
 
-  configurations {
-    jacksonDatabindConfig
-  }
-
-  // add jacksonDatabindConfig as provided scope config with high priority (1000)
-  conf2ScopeMappings.addMapping(1000, configurations.jacksonDatabindConfig, "provided")
-
   scaladoc {
     enabled = false
   }
@@ -754,69 +747,7 @@ project(':reusable') {
     compile libs.scalaLogging
     compile libs.slf4jApi
     compileOnly libs.log4j
-
-    compile libs.zstd
-    compile libs.lz4
-    compile libs.snappy
-    compile libs.slf4jApi
-
-    compileOnly libs.jacksonDatabind // for SASL/OAUTHBEARER bearer token parsing
-    compileOnly libs.jacksonJDK8Datatypes
-
-    jacksonDatabindConfig libs.jacksonDatabind // to publish as provided scope dependency.
-
-    testCompile libs.bcpkix
-    testCompile libs.junitJupiterApi
-    testCompile libs.junitVintageEngine
-    testCompile libs.mockitoCore
-
-    testRuntime libs.slf4jlog4j
-    testRuntime libs.jacksonDatabind
-    testRuntime libs.jacksonJDK8Datatypes
-    testCompile libs.jacksonJaxrsJsonProvider
   }
-
-  task processMessages(type:JavaExec) {
-    main = "org.apache.kafka.message.MessageGenerator"
-    classpath = project(':generator').sourceSets.main.runtimeClasspath
-    args = [ "-p", "org.apache.kafka.common.message",
-             "-o", "src/generated/java/org/apache/kafka/common/message",
-             "-i", "src/main/resources/common/message",
-             "-t", "ApiMessageTypeGenerator",
-             "-m", "MessageDataGenerator", "JsonConverterGenerator"
-    ]
-    inputs.dir("src/main/resources/common/message")
-    outputs.dir("src/generated/java/org/apache/kafka/common/message")
-  }
-
-  task processTestMessages(type:JavaExec) {
-    main = "org.apache.kafka.message.MessageGenerator"
-    classpath = project(':generator').sourceSets.main.runtimeClasspath
-    args = [ "-p", "org.apache.kafka.common.message",
-             "-o", "src/generated-test/java/org/apache/kafka/common/message",
-             "-i", "src/test/resources/common/message",
-             "-m", "MessageDataGenerator", "JsonConverterGenerator"
-    ]
-    inputs.dir("src/test/resources/common/message")
-    outputs.dir("src/generated-test/java/org/apache/kafka/common/message")
-  }
-
-  sourceSets {
-    main {
-      java {
-        srcDirs = ["src/generated/java", "src/main/java"]
-      }
-    }
-    test {
-      java {
-        srcDirs = ["src/generated/java", "src/generated-test/java", "src/test/java"]
-      }
-    }
-  }
-
-  compileJava.dependsOn 'processMessages'
-
-  compileTestJava.dependsOn 'processTestMessages'
 }
 
 project(':core') {
@@ -1175,30 +1106,30 @@ project(':clients') {
     delete "$buildDir/kafka/"
   }
 
-//  task processMessages(type:JavaExec) {
-//    main = "org.apache.kafka.message.MessageGenerator"
-//    classpath = project(':generator').sourceSets.main.runtimeClasspath
-//    args = [ "-p", "org.apache.kafka.common.message",
-//             "-o", "src/generated/java/org/apache/kafka/common/message",
-//             "-i", "src/main/resources/common/message",
-//             "-t", "ApiMessageTypeGenerator",
-//             "-m", "MessageDataGenerator", "JsonConverterGenerator"
-//           ]
-//    inputs.dir("src/main/resources/common/message")
-//    outputs.dir("src/generated/java/org/apache/kafka/common/message")
-//  }
-//
-//  task processTestMessages(type:JavaExec) {
-//    main = "org.apache.kafka.message.MessageGenerator"
-//    classpath = project(':generator').sourceSets.main.runtimeClasspath
-//    args = [ "-p", "org.apache.kafka.common.message",
-//             "-o", "src/generated-test/java/org/apache/kafka/common/message",
-//             "-i", "src/test/resources/common/message",
-//             "-m", "MessageDataGenerator", "JsonConverterGenerator"
-//           ]
-//    inputs.dir("src/test/resources/common/message")
-//    outputs.dir("src/generated-test/java/org/apache/kafka/common/message")
-//  }
+  task processMessages(type:JavaExec) {
+    main = "org.apache.kafka.message.MessageGenerator"
+    classpath = project(':generator').sourceSets.main.runtimeClasspath
+    args = [ "-p", "org.apache.kafka.common.message",
+             "-o", "src/generated/java/org/apache/kafka/common/message",
+             "-i", "src/main/resources/common/message",
+             "-t", "ApiMessageTypeGenerator",
+             "-m", "MessageDataGenerator", "JsonConverterGenerator"
+           ]
+    inputs.dir("src/main/resources/common/message")
+    outputs.dir("src/generated/java/org/apache/kafka/common/message")
+  }
+
+  task processTestMessages(type:JavaExec) {
+    main = "org.apache.kafka.message.MessageGenerator"
+    classpath = project(':generator').sourceSets.main.runtimeClasspath
+    args = [ "-p", "org.apache.kafka.common.message",
+             "-o", "src/generated-test/java/org/apache/kafka/common/message",
+             "-i", "src/test/resources/common/message",
+             "-m", "MessageDataGenerator", "JsonConverterGenerator"
+           ]
+    inputs.dir("src/test/resources/common/message")
+    outputs.dir("src/generated-test/java/org/apache/kafka/common/message")
+  }
 
   sourceSets {
     main {
@@ -1213,9 +1144,9 @@ project(':clients') {
     }
   }
 
-//  compileJava.dependsOn 'processMessages'
-//
-//  compileTestJava.dependsOn 'processTestMessages'
+  compileJava.dependsOn 'processMessages'
+
+  compileTestJava.dependsOn 'processTestMessages'
 
   javadoc {
     include "**/org/apache/kafka/clients/admin/*"
