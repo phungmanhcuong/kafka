@@ -34,7 +34,7 @@ import org.apache.kafka.common.security.scram.ScramCredential
 import org.apache.kafka.common.security.token.delegation.internals.DelegationTokenCache
 import org.apache.kafka.common.security.token.delegation.{DelegationToken, TokenInformation}
 import org.apache.kafka.common.utils.{Sanitizer, SecurityUtils, Time}
-import org.apache.kafka.reusable.startable.Server
+import org.apache.kafka.reusable.startable.UpDownAble
 
 import scala.jdk.CollectionConverters._
 import scala.collection.mutable
@@ -160,7 +160,7 @@ object DelegationTokenManager {
 class DelegationTokenManager(val config: KafkaConfig,
                              val tokenCache: DelegationTokenCache,
                              val time: Time,
-                             val zkClient: KafkaZkClient) extends Logging with KafkaMetricsGroup with Server[Unit] {
+                             val zkClient: KafkaZkClient) extends Logging with KafkaMetricsGroup with UpDownAble[Unit] {
   this.logIdent = s"[Token Manager on Broker ${config.brokerId}]: "
 
   import DelegationTokenManager._

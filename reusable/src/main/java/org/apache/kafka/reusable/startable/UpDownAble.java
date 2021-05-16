@@ -17,5 +17,5 @@
 
 package org.apache.kafka.reusable.startable;
 
-public interface Server<T> extends Startable<T>, Shutdownable<T> {
+public interface UpDownAble<T> extends Startable<T>, Shutdownable<T> {
 }
