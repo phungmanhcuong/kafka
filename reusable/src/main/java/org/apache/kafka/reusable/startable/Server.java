@@ -21,5 +21,4 @@ public interface Server<T> {
     T startup();
     T shutdown();
     T awaitShutdown();
-    T getLogManager();
 }
