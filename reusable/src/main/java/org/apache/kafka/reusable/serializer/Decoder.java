@@ -23,5 +23,5 @@ package org.apache.kafka.reusable.serializer;
  * takes a VerifiableProperties instance.
  */
 public interface Decoder<In, Out> {
-    Out fromBytes(In in);
+    Out decode(In in);
 }
