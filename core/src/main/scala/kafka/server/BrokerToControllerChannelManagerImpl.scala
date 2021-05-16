@@ -28,7 +28,6 @@ import org.apache.kafka.common.metrics.Metrics
 import org.apache.kafka.common.network._
 import org.apache.kafka.common.protocol.Errors
 import org.apache.kafka.common.security.JaasContext
-import org.apache.kafka.reusable.startable.Server
 
 import scala.collection.mutable
 import scala.jdk.CollectionConverters._
