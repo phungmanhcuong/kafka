@@ -16,7 +16,6 @@
 */
 package kafka.zk
 
-import java.util.Properties
 import com.yammer.metrics.core.MetricName
 import kafka.api.LeaderAndIsr
 import kafka.cluster.Broker
@@ -40,8 +39,8 @@ import org.apache.zookeeper.client.ZKClientConfig
 import org.apache.zookeeper.data.{ACL, Stat}
 import org.apache.zookeeper.{CreateMode, KeeperException, ZooKeeper}
 
+import java.util.Properties
 import scala.collection.{Map, Seq, mutable}
-import scala.runtime.RichLong
 
 /**
  * Provides higher level Kafka-specific operations on top of the pipelined [[kafka.zookeeper.ZooKeeperClient]].
@@ -52,7 +51,7 @@ import scala.runtime.RichLong
  * monolithic [[kafka.zk.ZkData]] is the way to go.
  */
 class KafkaZkClient private[zk] (zooKeeperClient: ZooKeeperClient, isSecure: Boolean, time: Time)
-    extends AutoCloseable with Logging with KafkaMetricsGroup with ZkClient[(Int, Int), BrokerInfo, RichLong] {
+    extends AutoCloseable with Logging with KafkaMetricsGroup with ZkClient[(Int, Int), BrokerInfo, Long] {
 
   override def metricName(name: String, metricTags: scala.collection.Map[String, String]): MetricName = {
     explicitMetricName("kafka.server", "ZooKeeperClientMetrics", name, metricTags)
