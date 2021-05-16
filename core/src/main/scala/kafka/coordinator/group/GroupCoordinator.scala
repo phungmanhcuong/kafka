@@ -18,7 +18,6 @@ package kafka.coordinator.group
 
 import java.util.Properties
 import java.util.concurrent.atomic.AtomicBoolean
-
 import kafka.common.OffsetAndMetadata
 import kafka.log.LogConfig
 import kafka.message.ProducerCompressionCodec
@@ -34,6 +33,7 @@ import org.apache.kafka.common.metrics.stats.Meter
 import org.apache.kafka.common.protocol.{ApiKeys, Errors}
 import org.apache.kafka.common.requests._
 import org.apache.kafka.common.utils.Time
+import org.apache.kafka.reusable.startable.Server
 
 import scala.collection.{Map, Seq, Set, immutable, mutable}
 import scala.math.max
@@ -57,7 +57,7 @@ class GroupCoordinator(val brokerId: Int,
                        val heartbeatPurgatory: DelayedOperationPurgatory[DelayedHeartbeat],
                        val joinPurgatory: DelayedOperationPurgatory[DelayedJoin],
                        time: Time,
-                       metrics: Metrics) extends Logging {
+                       metrics: Metrics) extends Logging with Server[Unit] {
   import GroupCoordinator._
 
   type JoinCallback = JoinGroupResult => Unit

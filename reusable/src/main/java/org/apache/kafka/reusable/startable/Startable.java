@@ -16,9 +16,9 @@
  */
 package org.apache.kafka.reusable.startable;
 
-public interface Startable<T, State> {
+public interface Startable<T> {
     T startup();
-    T shutdown();
-    T setServerState(State sate);
-    T awaitShutdown();
+//    T shutdown();
+//    T setServerState(State sate);
+//    T awaitShutdown();
 }

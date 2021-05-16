@@ -17,6 +17,5 @@
 
 package org.apache.kafka.reusable.startable;
 
-public interface ILogManager<T> {
-    T startup();
+public interface ILogManager<T> extends Startable<T>, Shutdownable<T> {
 }

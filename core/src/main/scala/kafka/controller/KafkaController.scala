@@ -18,7 +18,6 @@ package kafka.controller
 
 import java.util
 import java.util.concurrent.TimeUnit
-
 import kafka.admin.AdminOperationException
 import kafka.api._
 import kafka.common._
@@ -43,6 +42,7 @@ import org.apache.kafka.common.metrics.Metrics
 import org.apache.kafka.common.protocol.Errors
 import org.apache.kafka.common.requests.{AbstractControlRequest, ApiError, LeaderAndIsrResponse, UpdateFeaturesRequest, UpdateMetadataResponse}
 import org.apache.kafka.common.utils.{Time, Utils}
+import org.apache.kafka.reusable.startable.Shutdownable
 import org.apache.zookeeper.KeeperException
 import org.apache.zookeeper.KeeperException.Code
 
@@ -77,7 +77,7 @@ class KafkaController(val config: KafkaConfig,
                       brokerFeatures: BrokerFeatures,
                       featureCache: FinalizedFeatureCache,
                       threadNamePrefix: Option[String] = None)
-  extends ControllerEventProcessor with Logging with KafkaMetricsGroup {
+  extends ControllerEventProcessor with Logging with KafkaMetricsGroup with Shutdownable[Unit] {
 
   this.logIdent = s"[Controller id=${config.brokerId}] "
 

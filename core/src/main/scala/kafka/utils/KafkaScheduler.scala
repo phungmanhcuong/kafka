@@ -20,6 +20,7 @@ package kafka.utils
 import java.util.concurrent._
 import atomic._
 import org.apache.kafka.common.utils.KafkaThread
+import org.apache.kafka.reusable.startable.Server
 
 /**
  * A scheduler for running jobs
@@ -68,7 +69,7 @@ trait Scheduler {
 @threadsafe
 class KafkaScheduler(val threads: Int, 
                      val threadNamePrefix: String = "kafka-scheduler-", 
-                     daemon: Boolean = true) extends Scheduler with Logging {
+                     daemon: Boolean = true) extends Scheduler with Logging with Server[Unit] {
   private var executor: ScheduledThreadPoolExecutor = null
   private val schedulerThreadId = new AtomicInteger(0)
 
