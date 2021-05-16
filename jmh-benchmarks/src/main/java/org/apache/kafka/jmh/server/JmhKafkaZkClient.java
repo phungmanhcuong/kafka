@@ -15,13 +15,27 @@
  * limitations under the License.
  */
 
-package org.apache.kafka.reusable.inout.zk;
+package org.apache.kafka.jmh.server;
 
-import org.apache.kafka.reusable.KafkaBase;
+import kafka.zk.BrokerInfo;
+import kafka.zk.KafkaZkClient;
+import kafka.zookeeper.ZooKeeperClient;
+import org.apache.kafka.common.utils.Time;
 import scala.Int;
+import scala.Tuple2;
 
-public interface ZkClient<RegisterControllerOutput, BrokerInfo extends KafkaBase> {
-    long registerBroker(BrokerInfo brokerInfo);
-    RegisterControllerOutput registerControllerAndIncrementControllerEpoch(Int id);
-//    Unit updateBrokerInfo(BrokerInfo brokerInfo);
+public class JmhKafkaZkClient extends KafkaZkClient {
+    public JmhKafkaZkClient(ZooKeeperClient zooKeeperClient, boolean isSecure, Time time) {
+        super(zooKeeperClient, isSecure, time);
+    }
+
+    @Override
+    public Tuple2<Object, Object> registerControllerAndIncrementControllerEpoch(Int id) {
+        return null;
+    }
+
+    @Override
+    public long registerBroker(BrokerInfo brokerInfo) {
+        return super.registerBroker(brokerInfo);
+    }
 }
