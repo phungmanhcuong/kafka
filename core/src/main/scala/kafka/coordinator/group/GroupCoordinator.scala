@@ -33,7 +33,7 @@ import org.apache.kafka.common.metrics.stats.Meter
 import org.apache.kafka.common.protocol.{ApiKeys, Errors}
 import org.apache.kafka.common.requests._
 import org.apache.kafka.common.utils.Time
-import org.apache.kafka.reusable.startable.Server
+import org.apache.kafka.reusable.startable.{Server, Shutdownable}
 
 import scala.collection.{Map, Seq, Set, immutable, mutable}
 import scala.math.max
@@ -57,7 +57,7 @@ class GroupCoordinator(val brokerId: Int,
                        val heartbeatPurgatory: DelayedOperationPurgatory[DelayedHeartbeat],
                        val joinPurgatory: DelayedOperationPurgatory[DelayedJoin],
                        time: Time,
-                       metrics: Metrics) extends Logging with Server[Unit] {
+                       metrics: Metrics) extends Logging with Shutdownable[Unit] {
   import GroupCoordinator._
 
   type JoinCallback = JoinGroupResult => Unit

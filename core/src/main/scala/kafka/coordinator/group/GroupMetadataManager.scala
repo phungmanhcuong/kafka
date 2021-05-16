@@ -24,7 +24,6 @@ import java.util.Optional
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.locks.ReentrantLock
-
 import com.yammer.metrics.core.Gauge
 import kafka.api.{ApiVersion, KAFKA_0_10_1_IV0, KAFKA_2_1_IV0, KAFKA_2_1_IV1, KAFKA_2_3_IV0}
 import kafka.common.OffsetAndMetadata
@@ -49,6 +48,7 @@ import org.apache.kafka.common.requests.ProduceResponse.PartitionResponse
 import org.apache.kafka.common.requests.{OffsetCommitRequest, OffsetFetchResponse}
 import org.apache.kafka.common.utils.{Time, Utils}
 import org.apache.kafka.common.{KafkaException, MessageFormatter, TopicPartition}
+import org.apache.kafka.reusable.startable.Server
 
 import scala.collection._
 import scala.collection.mutable.ArrayBuffer
@@ -60,7 +60,7 @@ class GroupMetadataManager(brokerId: Int,
                            val replicaManager: ReplicaManager,
                            zkClient: KafkaZkClient,
                            time: Time,
-                           metrics: Metrics) extends Logging with KafkaMetricsGroup {
+                           metrics: Metrics) extends Logging with KafkaMetricsGroup with Server[Unit] {
 
   private val compressionType: CompressionType = CompressionType.forId(config.offsetsTopicCompressionCodec.codec)
 
