@@ -18,7 +18,6 @@
 package kafka.server
 
 import java.util.concurrent.{LinkedBlockingDeque, TimeUnit}
-
 import kafka.common.{InterBrokerSendThread, RequestAndCompletionHandler}
 import kafka.utils.Logging
 import org.apache.kafka.clients._
@@ -29,16 +28,17 @@ import org.apache.kafka.common.metrics.Metrics
 import org.apache.kafka.common.network._
 import org.apache.kafka.common.protocol.Errors
 import org.apache.kafka.common.security.JaasContext
+import org.apache.kafka.reusable.startable.Server
 
 import scala.collection.mutable
 import scala.jdk.CollectionConverters._
 
 
-trait BrokerToControllerChannelManager {
+trait BrokerToControllerChannelManager extends Server[Unit] {
   def sendRequest(request: AbstractRequest.Builder[_ <: AbstractRequest],
                   callback: RequestCompletionHandler): Unit
 
-  def start(): Unit
+  def startup(): Unit
 
   def shutdown(): Unit
 }
@@ -61,7 +61,7 @@ class BrokerToControllerChannelManagerImpl(metadataCache: kafka.server.MetadataC
   private val manualMetadataUpdater = new ManualMetadataUpdater()
   private val requestThread = newRequestThread
 
-  override def start(): Unit = {
+  override def startup(): Unit = {
     requestThread.start()
   }
 
