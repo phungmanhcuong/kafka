@@ -19,7 +19,6 @@ package kafka.zk
 import java.nio.charset.StandardCharsets.UTF_8
 import java.util
 import java.util.Properties
-
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.core.JsonProcessingException
 import kafka.api.{ApiVersion, KAFKA_0_10_0_IV1, KAFKA_2_7_IV0, LeaderAndIsr}
@@ -40,6 +39,7 @@ import org.apache.kafka.common.resource.{PatternType, ResourcePattern, ResourceT
 import org.apache.kafka.common.security.auth.SecurityProtocol
 import org.apache.kafka.common.security.token.delegation.{DelegationToken, TokenInformation}
 import org.apache.kafka.common.utils.{SecurityUtils, Time}
+import org.apache.kafka.reusable.KafkaBase
 import org.apache.zookeeper.ZooDefs
 import org.apache.zookeeper.data.{ACL, Stat}
 
@@ -108,7 +108,7 @@ object BrokerInfo {
 
 }
 
-case class BrokerInfo(broker: Broker, version: Int, jmxPort: Int) {
+case class BrokerInfo(broker: Broker, version: Int, jmxPort: Int) extends KafkaBase {
   val path: String = BrokerIdZNode.path(broker.id)
   def toJsonBytes: Array[Byte] = BrokerIdZNode.encode(this)
 }

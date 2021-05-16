@@ -15,15 +15,7 @@
  * limitations under the License.
  */
 
-package org.apache.kafka.reusable.inout.zk;
+package org.apache.kafka.reusable;
 
-import org.apache.kafka.reusable.KafkaBase;
-import scala.Int;
-import scala.Long;
-import scala.Unit;
-
-public interface ZkClient<BrokerInfo extends KafkaBase, RegisterControllerOutput> {
-    Long registerBroker(BrokerInfo brokerInfo);
-    RegisterControllerOutput registerControllerAndIncrementControllerEpoch(Int id);
-    Unit updateBrokerInfo(BrokerInfo brokerInfo);
+public interface KafkaBase {
 }
