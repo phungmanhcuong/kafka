@@ -14,7 +14,6 @@
 // limitations under the License.
 
 include 'clients',
-    'core-wrapper',
     'reusable',
     'connect:api',
     'connect:basic-auth-extension',
