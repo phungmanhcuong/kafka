@@ -750,6 +750,12 @@ project(':reusable') {
   }
 }
 
+project(':core-wrapper') {
+  dependencies {
+    compile project(':core')
+  }
+}
+
 project(':core') {
   println "Building project 'core' with Scala version ${versions.scala}"
 
