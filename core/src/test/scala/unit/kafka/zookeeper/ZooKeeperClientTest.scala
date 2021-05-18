@@ -165,14 +165,19 @@ class ZooKeeperClientTest extends ZooKeeperTestHarness {
   }
 
   @Test
-  def testGetDataExistingZNode(): Unit = {
+  def givenExistingDataWhenGetDataThenShouldReturnRightValue(): Unit = {
+    //GIVEN
     val data = bytes
     val createResponse = zooKeeperClient.handleRequest(CreateRequest(mockPath, data, ZooDefs.Ids.OPEN_ACL_UNSAFE.asScala,
       CreateMode.PERSISTENT))
-    assertEquals("Response code for create should be OK", Code.OK, createResponse.resultCode)
+    assertEquals(Code.OK, createResponse.resultCode)
+
+    //WHEN
     val getDataResponse = zooKeeperClient.handleRequest(GetDataRequest(mockPath))
-    assertEquals("Response code for getData should be OK", Code.OK, getDataResponse.resultCode)
-    assertArrayEquals("Data for getData should match created znode data", data, getDataResponse.data)
+
+    //THEN
+    assertEquals(Code.OK, getDataResponse.resultCode)
+    assertArrayEquals(data, getDataResponse.data)
   }
 
   @Test
