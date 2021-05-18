@@ -113,9 +113,8 @@ ext {
   minJavaVersion = "8"
   buildVersionFileName = "kafka-version.properties"
 
-  defaultMaxHeapSize = java.util.Optional.ofNullable(System.getenv("kafka_build_max_heap_size")).orElse("2g")
-  defaultJvmArgs = ["-Xss256m", "-XX:+UseParallelGC"]
-//  defaultJvmArgs = ["-Xss1024m", "-XX:+UnlockExperimentalVMOptions", "-XX:+UseShenandoahGC"]
+  defaultMaxHeapSize = "2g"
+  defaultJvmArgs = ["-Xss4m", "-XX:+UseParallelGC"]
 
   userMaxForks = project.hasProperty('maxParallelForks') ? maxParallelForks.toInteger() : null
   userIgnoreFailures = project.hasProperty('ignoreFailures') ? ignoreFailures : false
@@ -727,29 +726,6 @@ tasks.create(name: "jarConnect", dependsOn: connectPkgs.collect { it + ":jar" })
 
 tasks.create(name: "testConnect", dependsOn: connectPkgs.collect { it + ":test" }) {}
 
-project(':reusable') {
-  println "Building project 'reusable' with Scala version ${versions.scala}"
-  apply plugin: 'scala'
-
-  scaladoc {
-    enabled = false
-  }
-  if (userEnableTestCoverage)
-    apply plugin: "org.scoverage"
-  archivesBaseName = "kafka_${versions.baseScala}"
-
-  dependencies {
-    compile libs.scalaCollectionCompat
-    compile libs.scalaJava8Compat
-    compile libs.scalaLibrary
-    // only needed transitively, but set it explicitly to ensure it has the same version as scala-library
-    compile libs.scalaReflect
-    compile libs.scalaLogging
-    compile libs.slf4jApi
-    compileOnly libs.log4j
-  }
-}
-
 project(':core') {
   println "Building project 'core' with Scala version ${versions.scala}"
 
@@ -767,7 +743,6 @@ project(':core') {
   archivesBaseName = "kafka_${versions.baseScala}"
 
   dependencies {
-    compile project(':reusable')
     compile project(':clients')
     compile project(':raft')
     compile libs.jacksonDatabind
@@ -1057,7 +1032,6 @@ project(':clients') {
   conf2ScopeMappings.addMapping(1000, configurations.jacksonDatabindConfig, "provided")
 
   dependencies {
-    compile project(':reusable')
     compile libs.zstd
     compile libs.lz4
     compile libs.snappy
@@ -1715,7 +1689,6 @@ project(':jmh-benchmarks') {
   }
 
   dependencies {
-    compile project(':reusable')
     compile project(':core')
     compile project(':clients')
     compile project(':streams')

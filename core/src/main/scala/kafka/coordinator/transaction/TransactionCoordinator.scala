@@ -18,6 +18,7 @@ package kafka.coordinator.transaction
 
 import java.util.Properties
 import java.util.concurrent.atomic.AtomicBoolean
+
 import kafka.server.{KafkaConfig, MetadataCache, ReplicaManager}
 import kafka.utils.{Logging, Scheduler}
 import kafka.zk.KafkaZkClient
@@ -28,7 +29,6 @@ import org.apache.kafka.common.protocol.Errors
 import org.apache.kafka.common.record.RecordBatch
 import org.apache.kafka.common.requests.TransactionResult
 import org.apache.kafka.common.utils.{LogContext, ProducerIdAndEpoch, Time}
-import org.apache.kafka.reusable.startable.Shutdownable
 
 object TransactionCoordinator {
 
@@ -87,7 +87,7 @@ class TransactionCoordinator(brokerId: Int,
                              txnManager: TransactionStateManager,
                              txnMarkerChannelManager: TransactionMarkerChannelManager,
                              time: Time,
-                             logContext: LogContext) extends Logging with Shutdownable[Unit] {
+                             logContext: LogContext) extends Logging {
   this.logIdent = logContext.logPrefix
 
   import TransactionCoordinator._

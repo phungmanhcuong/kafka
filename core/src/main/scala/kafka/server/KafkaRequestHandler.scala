@@ -20,14 +20,12 @@ package kafka.server
 import kafka.network._
 import kafka.utils._
 import kafka.metrics.KafkaMetricsGroup
-
 import java.util.concurrent.{CountDownLatch, TimeUnit}
 import java.util.concurrent.atomic.AtomicInteger
+
 import com.yammer.metrics.core.Meter
 import org.apache.kafka.common.internals.FatalExitError
 import org.apache.kafka.common.utils.{KafkaThread, Time}
-import org.apache.kafka.reusable.inout.HandlerPool
-import org.apache.kafka.reusable.startable.Shutdownable
 
 import scala.collection.mutable
 import scala.jdk.CollectionConverters._
@@ -105,8 +103,7 @@ class KafkaRequestHandlerPool(val brokerId: Int,
                               time: Time,
                               numThreads: Int,
                               requestHandlerAvgIdleMetricName: String,
-                              logAndThreadNamePrefix : String)
-    extends Logging with KafkaMetricsGroup with HandlerPool[Int, Unit] with Shutdownable[Unit] {
+                              logAndThreadNamePrefix : String) extends Logging with KafkaMetricsGroup {
 
   private val threadPoolSize: AtomicInteger = new AtomicInteger(numThreads)
   /* a meter to track the average free capacity of the request handlers */

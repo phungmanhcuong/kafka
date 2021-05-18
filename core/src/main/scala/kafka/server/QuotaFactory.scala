@@ -22,7 +22,6 @@ import org.apache.kafka.common.TopicPartition
 import org.apache.kafka.common.metrics.Metrics
 import org.apache.kafka.server.quota.ClientQuotaCallback
 import org.apache.kafka.common.utils.Time
-import org.apache.kafka.reusable.startable.Shutdownable
 import org.apache.kafka.server.quota.ClientQuotaType
 
 object QuotaType  {
@@ -62,7 +61,7 @@ object QuotaFactory extends Logging {
                            leader: ReplicationQuotaManager,
                            follower: ReplicationQuotaManager,
                            alterLogDirs: ReplicationQuotaManager,
-                           clientQuotaCallback: Option[ClientQuotaCallback]) extends Shutdownable[Unit] {
+                           clientQuotaCallback: Option[ClientQuotaCallback]) {
     def shutdown(): Unit = {
       fetch.shutdown()
       produce.shutdown()
