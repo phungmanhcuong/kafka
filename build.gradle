@@ -114,7 +114,7 @@ ext {
   buildVersionFileName = "kafka-version.properties"
 
   defaultMaxHeapSize = "12g"
-  defaultJvmArgs = ["-Xss10244m", "-XX:+UseParallelGC"]
+  defaultJvmArgs = ["-Xss1024m", "-XX:+UseParallelGC"]
 
   userMaxForks = project.hasProperty('maxParallelForks') ? maxParallelForks.toInteger() : null
   userIgnoreFailures = project.hasProperty('ignoreFailures') ? ignoreFailures : false
